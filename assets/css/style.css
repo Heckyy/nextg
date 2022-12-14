@@ -1,0 +1,164 @@
+.line{
+	border-bottom: thin dashed  #aaa;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.icons-size{
+	font-size:18px;
+	margin-top: -13px;
+}
+
+.icons-login{
+	font-size: 20px;
+}
+
+.margin-top{
+	margin-top: 50px;
+}
+
+.space{
+	height: 31px;
+}
+
+.link-new{
+	border: thin solid #eaeaea;
+}
+
+.link-new:hover{
+	border: thin solid #aaaaaa;
+	color: #555555;
+}
+
+.table thead{
+	background-color: #eaeaea;
+}
+
+.table thead tr td{
+	font-size: 13.2px;
+	font-weight: normal;
+	color: #535353;
+}
+
+.table thead tr td{
+	padding: 8px;
+	margin: 0px;
+}
+
+.table tbody tr:hover{
+	background-color: #f6f6f6;
+}
+
+.table tbody tr td{
+	cursor: pointer;
+	font-size: 13px;
+	margin:0px;
+	padding: 8px;
+	vertical-align: top;
+}
+
+.space_icons{
+	margin-left: 10px;
+}
+
+.space_line{
+	margin-bottom: 10px;
+}
+
+.navbar{
+	height: 50px;
+}
+
+.app-card-title{
+	font-size: 16px;
+}
+
+.textarea-edit{
+	resize:none;
+}
+
+.ml-2{
+	margin-left: 5px;
+}
+
+.btn-custom{
+	margin-top: 10px;
+	padding: 5px 15px;
+}
+
+.myFont{
+	font-size:4px;
+}
+
+.logo{
+	padding-left: 20px;
+	font-weight: bold;
+}
+
+.app-card-body{
+	margin-top:-6px;
+}
+
+.app-card-body .scroll{
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+}
+
+.scroll-height{
+	overflow: auto;
+	width: 100%;
+	height: 300px;
+
+}
+
+#pagination{
+	margin-bottom: 30px;
+	margin-left: 5px;
+}
+
+
+.btn {
+	padding: 5px 15px;
+}
+
+.size-icons-100{
+	font-size: 100px;
+}
+
+.none{
+	display: none;
+}
+
+#view_detail{
+	top: 0px;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	display: none;
+	z-index: +9999;
+}
+
+.box-detail{
+	margin: 5% auto auto auto ;
+	width: 500px;
+	height: 390px;
+	overflow-y: auto;
+	background-color: #FFFFFF;
+	padding: 20px;
+	display: block;
+}
+
+.btn-custom-show{
+	padding: 2px 10px;
+}
+
+.link{
+	width: 100%;
+	float: left;
+	color: #333;
+}
+.link:hover{
+	color: #000;
+}

@@ -1,0 +1,248 @@
+ErrorDocument 403 /src/error/error_403.html
+ErrorDocument 404 /src/error/error_404.html
+ErrorDocument 500 /src/error/error_500.html
+
+RewriteEngine on
+
+RewriteCond %{HTTPS} off 
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteRule ^home$ index.php?hal=home
+
+RewriteRule ^rw$ index.php?hal=rw
+RewriteRule ^rw/edit$ index.php?hal=rw&get=edit
+
+RewriteRule ^rt$ index.php?hal=rt
+RewriteRule ^rt/view/(.*)$ index.php?hal=rt&get=view&view=$1
+RewriteRule ^rt/edit/(.*)$ index.php?hal=rt&get=edit&view=$1
+RewriteRule ^rt/new$ index.php?hal=rt&get=new
+
+
+
+RewriteRule ^account$ index.php?hal=account
+RewriteRule ^account/view/(.*)$ index.php?hal=account&get=view&view=$1
+RewriteRule ^account/edit/(.*)$ index.php?hal=account&get=edit&view=$1
+RewriteRule ^account/new$ index.php?hal=account&get=new
+
+RewriteRule ^account_balance$ index.php?hal=account_balance
+
+RewriteRule ^account/group-account$ index.php?hal=group_account
+RewriteRule ^account/group-account/view/(.*)$ index.php?hal=group_account&get=view&view=$1
+RewriteRule ^account/group-account/edit/(.*)$ index.php?hal=group_account&get=edit&view=$1
+
+RewriteRule ^account/type-of-account$ index.php?hal=type_of_account
+RewriteRule ^account/type-of-account/view/(.*)$ index.php?hal=type_of_account&get=view&view=$1
+RewriteRule ^account/type-of-account/edit/(.*)$ index.php?hal=type_of_account&get=edit&view=$1
+
+RewriteRule ^account/pcg/purchasing$ index.php?hal=acn_purchasing
+RewriteRule ^account/pcg/purchasing/edit$ index.php?hal=acn_purchasing&get=edit
+
+RewriteRule ^account/fn/type-of-receipt$ index.php?hal=fn_type_of_receipt
+RewriteRule ^account/fn/type-of-receipt/edit$ index.php?hal=fn_type_of_receipt&get=edit
+
+RewriteRule ^account/fn/type-of-payment$ index.php?hal=fn_type_of_payment
+RewriteRule ^account/fn/type-of-payment/edit$ index.php?hal=fn_type_of_payment&get=edit
+
+RewriteRule ^account/wh/type-of-receipt$ index.php?hal=wh_type_of_receipt
+RewriteRule ^account/wh/type-of-receipt/edit$ index.php?hal=wh_type_of_receipt&get=edit
+
+RewriteRule ^account/wh/type-of-out$ index.php?hal=wh_type_of_out
+RewriteRule ^account/wh/type-of-out/edit$ index.php?hal=wh_type_of_out&get=edit
+
+RewriteRule ^type-of-item$ index.php?hal=type_of_item
+RewriteRule ^type-of-item/view/(.*)$ index.php?hal=type_of_item&get=view&view=$1
+RewriteRule ^type-of-item/edit/(.*)$ index.php?hal=type_of_item&get=edit&view=$1
+RewriteRule ^type-of-item/new$ index.php?hal=type_of_item&get=new
+
+RewriteRule ^account/setting-account$ index.php?hal=setting_account
+
+RewriteRule ^cluster$ index.php?hal=cluster
+RewriteRule ^cluster/view/(.*)$ index.php?hal=cluster&get=view&view=$1
+RewriteRule ^cluster/edit/(.*)$ index.php?hal=cluster&get=edit&view=$1
+RewriteRule ^cluster/new$ index.php?hal=cluster&get=new
+
+RewriteRule ^house-owner$ index.php?hal=house_owner
+RewriteRule ^house-owner/view/(.*)$ index.php?hal=house_owner&get=view&view=$1
+RewriteRule ^house-owner/edit/(.*)$ index.php?hal=house_owner&get=edit&view=$1
+RewriteRule ^house-owner/new$ index.php?hal=house_owner&get=new
+
+RewriteRule ^population$ index.php?hal=population
+RewriteRule ^population/view/(.*)$ index.php?hal=population&get=view&view=$1
+RewriteRule ^population/edit/(.*)$ index.php?hal=population&get=edit&view=$1
+RewriteRule ^population/new$ index.php?hal=population&get=new
+
+RewriteRule ^dues-type$ index.php?hal=dues_type
+RewriteRule ^dues-type/view/(.*)$ index.php?hal=dues_type&get=view&view=$1
+RewriteRule ^dues-type/edit/(.*)$ index.php?hal=dues_type&get=edit&view=$1
+RewriteRule ^dues-type/new$ index.php?hal=dues_type&get=new
+
+RewriteRule ^unit$ index.php?hal=unit
+RewriteRule ^unit/view/(.*)$ index.php?hal=unit&get=view&view=$1
+RewriteRule ^unit/edit/(.*)$ index.php?hal=unit&get=edit&view=$1
+RewriteRule ^unit/new$ index.php?hal=unit&get=new
+
+RewriteRule ^position$ index.php?hal=position
+RewriteRule ^position/view/(.*)$ index.php?hal=position&get=view&view=$1
+RewriteRule ^position/edit/(.*)$ index.php?hal=position&get=edit&view=$1
+RewriteRule ^position/new$ index.php?hal=position&get=new
+
+RewriteRule ^type-of-work$ index.php?hal=type_of_work
+RewriteRule ^type-of-work/view/(.*)$ index.php?hal=type_of_work&get=view&view=$1
+RewriteRule ^type-of-work/edit/(.*)$ index.php?hal=type_of_work&get=edit&view=$1
+RewriteRule ^type-of-work/new$ index.php?hal=type_of_work&get=new
+
+RewriteRule ^employee$ index.php?hal=employee
+RewriteRule ^employee/view/(.*)$ index.php?hal=employee&get=view&view=$1
+RewriteRule ^employee/edit/(.*)$ index.php?hal=employee&get=edit&view=$1
+RewriteRule ^employee/access/(.*)$ index.php?hal=employee&get=access&view=$1
+RewriteRule ^employee/new$ index.php?hal=employee&get=new
+
+RewriteRule ^coordinator$ index.php?hal=coordinator
+RewriteRule ^coordinator/view/(.*)$ index.php?hal=coordinator&get=view&view=$1
+RewriteRule ^coordinator/edit/(.*)$ index.php?hal=coordinator&get=edit&view=$1
+RewriteRule ^coordinator/new$ index.php?hal=coordinator&get=new
+
+RewriteRule ^contractor$ index.php?hal=contractor
+RewriteRule ^contractor/view/(.*)$ index.php?hal=contractor&get=view&view=$1
+RewriteRule ^contractor/edit/(.*)$ index.php?hal=contractor&get=edit&view=$1
+RewriteRule ^contractor/new$ index.php?hal=contractor&get=new
+
+RewriteRule ^bank-cash$ index.php?hal=bank_cash
+RewriteRule ^bank-cash/view/(.*)$ index.php?hal=bank_cash&get=view&view=$1
+RewriteRule ^bank-cash/edit/(.*)$ index.php?hal=bank_cash&get=edit&view=$1
+RewriteRule ^bank-cash/new$ index.php?hal=bank_cash&get=new
+
+RewriteRule ^bank-cash/input-saldo$ index.php?hal=input_saldo
+
+RewriteRule ^type-of-receipt$ index.php?hal=type_of_receipt
+RewriteRule ^type-of-receipt/view/(.*)$ index.php?hal=type_of_receipt&get=view&view=$1
+RewriteRule ^type-of-receipt/edit/(.*)$ index.php?hal=type_of_receipt&get=edit&view=$1
+RewriteRule ^type-of-receipt/new$ index.php?hal=type_of_receipt&get=new
+
+RewriteRule ^type-of-payment$ index.php?hal=type_of_payment
+RewriteRule ^type-of-payment/view/(.*)$ index.php?hal=type_of_payment&get=view&view=$1
+RewriteRule ^type-of-payment/edit/(.*)$ index.php?hal=type_of_payment&get=edit&view=$1
+RewriteRule ^type-of-payment/new$ index.php?hal=type_of_payment&get=new
+
+RewriteRule ^cash-receipt/bank/(.*)$ index.php?hal=cash_receipt&view=$1
+RewriteRule ^cash-receipt/view/(.*)$ index.php?hal=cash_receipt&get=view&view=$1
+RewriteRule ^cash-receipt/edit/(.*)$ index.php?hal=cash_receipt&get=edit&view=$1
+RewriteRule ^cash-receipt/new$ index.php?hal=cash_receipt&get=new
+RewriteRule ^cash-receipt/get-invoice$ index.php?hal=cash_receipt&get=get_invoice
+RewriteRule ^cash-receipt/invoice/(.*)$ index.php?hal=cash_receipt&get=invoice&view=$1
+RewriteRule ^cash-receipt/view-invoice/(.*)$ index.php?hal=cash_receipt&get=view_invoice&view=$1
+RewriteRule ^cash-receipt/view-ipl/(.*)$ index.php?hal=cash_receipt&get=view_ipl&view=$1
+RewriteRule ^cash-receipt/edit-ipl/(.*)$ index.php?hal=cash_receipt&get=edit_ipl&view=$1
+RewriteRule ^cash-receipt/upload$ index.php?hal=cash_receipt&get=upload
+RewriteRule ^invoice/upload(.*)$ index.php?hal=invoice&get=upload
+
+RewriteRule ^print/cash-receipt/(.*)$ src/print/cash_receipt_print.php?view=$1
+RewriteRule ^print/report_inventory_print/(.*)$ src/print/report_inventory_print.php?view=$1
+ RewriteRule ^print/report_finance_balance_print/(.*)$ src/print/report_finance_balance_print.php?view=$1
+RewriteRule ^print/tagihan_print/(.*)$ src/print/tagihan_print.php?view=$1
+
+RewriteRule ^print/cash-receipt-warga/(.*)$ src/print/cash_receipt_warga_print.php?view=$1
+RewriteRule ^print/cash-payment/(.*)$ src/print/cash_payment_print.php?view=$1
+
+RewriteRule ^print/cash-payment-purchasing/(.*)$ src/print/cash_payment_print_purchasing.php?view=$1
+RewriteRule ^print/cash-receipt-population/(.*)$ src/print/cash_payment_print_population.php?view=$1
+
+RewriteRule ^cash-payment/bank/(.*)$ index.php?hal=cash_payment&view=$1
+RewriteRule ^cash-payment/view/(.*)$ index.php?hal=cash_payment&get=view&view=$1
+RewriteRule ^cash-payment/edit/(.*)$ index.php?hal=cash_payment&get=edit&view=$1
+RewriteRule ^cash-payment/new$ index.php?hal=cash_payment&get=new
+RewriteRule ^cash-payment/new-pembayaran$ index.php?hal=cash_payment&get=new_pembayaran
+RewriteRule ^cash-payment/new-payroll$ index.php?hal=cash_payment&get=new_payroll
+RewriteRule ^cash-payment/get-purchasing$ index.php?hal=cash_payment&get=get_purchasing
+RewriteRule ^cash-payment/purchasing/(.*)$ index.php?hal=cash_payment&get=purchasing&view=$1
+RewriteRule ^cash-payment/view-purchasing/(.*)$ index.php?hal=cash_payment&get=view_purchasing&view=$1
+
+RewriteRule ^invoice$ index.php?hal=invoice
+RewriteRule ^invoice/view/(.*)$ index.php?hal=invoice&get=view&view=$1
+RewriteRule ^invoice/edit/(.*)$ index.php?hal=invoice&get=edit&view=$1
+RewriteRule ^invoice/new$ index.php?hal=invoice&get=new
+RewriteRule ^invoice/new-all$ index.php?hal=invoice&get=new_all
+RewriteRule ^invoice/new-dues$ index.php?hal=invoice&get=new_dues
+
+RewriteRule ^print/invoice-oper-link/(.*)$ index.php?hal=invoice&get=oper_link&view=$1
+RewriteRule ^print/invoice/(.*)$ src/print/invoice_print.php?view=$1
+RewriteRule ^request$ index.php?hal=request
+RewriteRule ^request/view/(.*)$ index.php?hal=request&get=view&view=$1
+RewriteRule ^request/edit/(.*)$ index.php?hal=request&get=edit&view=$1
+RewriteRule ^request/new$ index.php?hal=request&get=new
+
+RewriteRule ^purchasing$ index.php?hal=purchasing
+RewriteRule ^purchasing/view/(.*)$ index.php?hal=purchasing&get=view&view=$1
+RewriteRule ^purchasing/edit/(.*)$ index.php?hal=purchasing&get=edit&view=$1
+RewriteRule ^purchasing/new-manual$ index.php?hal=purchasing&get=new_manual
+RewriteRule ^purchasing/edit-manual/(.*)$ index.php?hal=purchasing&get=edit&view=$1&manual=proses
+RewriteRule ^purchasing/new/(.*)$ index.php?hal=purchasing&get=new&view=$1
+RewriteRule ^purchasing/new$ index.php?hal=purchasing&get=new
+
+RewriteRule ^inv_purchasing$ index.php?hal=inv_purchasing
+RewriteRule ^inv_purchasing/new$ index.php?hal=inv_purchasing&get=new
+RewriteRule ^inv_purchasing/view/(.*)$ index.php?hal=inv_purchasing&get=view&view=$1
+
+
+RewriteRule ^purchasing/list-request$ index.php?hal=purchasing&get=list_request
+
+RewriteRule ^maintenance$ index.php?hal=maintenance
+RewriteRule ^maintenance/view/(.*)$ index.php?hal=maintenance&get=view&view=$1
+RewriteRule ^maintenance/edit/(.*)$ index.php?hal=maintenance&get=edit&view=$1
+RewriteRule ^maintenance/new$ index.php?hal=maintenance&get=new
+
+RewriteRule ^po-maintenance$ index.php?hal=po_maintenance
+RewriteRule ^po-maintenance/view/(.*)$ index.php?hal=po_maintenance&get=view&view=$1
+RewriteRule ^po-maintenance/edit/(.*)$ index.php?hal=po_maintenance&get=edit&view=$1
+RewriteRule ^po-maintenance/new$ index.php?hal=po_maintenance&get=new
+
+RewriteRule ^monitoring-purchasing$ index.php?hal=monitoring_purchasing
+RewriteRule ^monitoring-invoice$ index.php?hal=monitoring_invoice
+
+RewriteRule ^warehouse$ index.php?hal=warehouse
+RewriteRule ^warehouse/view/(.*)$ index.php?hal=warehouse&get=view&view=$1
+RewriteRule ^warehouse/edit/(.*)$ index.php?hal=warehouse&get=edit&view=$1
+RewriteRule ^warehouse/new$ index.php?hal=warehouse&get=new
+
+RewriteRule ^item$ index.php?hal=item
+RewriteRule ^item/view/(.*)$ index.php?hal=item&get=view&view=$1
+RewriteRule ^item/edit/(.*)$ index.php?hal=item&get=edit&view=$1
+RewriteRule ^item/new$ index.php?hal=item&get=new
+
+RewriteRule ^item-receipt$ index.php?hal=item_receipt
+RewriteRule ^item-receipt/view/(.*)$ index.php?hal=item_receipt&get=view&view=$1
+RewriteRule ^item-receipt/edit/(.*)$ index.php?hal=item_receipt&get=edit&view=$1
+RewriteRule ^item-receipt/new$ index.php?hal=item_receipt&get=new
+
+RewriteRule ^item-out$ index.php?hal=item_out
+RewriteRule ^item-out/view/(.*)$ index.php?hal=item_out&get=view&view=$1
+RewriteRule ^item-out/edit/(.*)$ index.php?hal=item_out&get=edit&view=$1
+RewriteRule ^item-out/new$ index.php?hal=item_out&get=new
+
+RewriteRule ^house-size$ index.php?hal=house_size
+RewriteRule ^house-size/view/(.*)$ index.php?hal=house_size&get=view&view=$1
+RewriteRule ^house-size/edit/(.*)$ index.php?hal=house_size&get=edit&view=$1
+RewriteRule ^house-size/new$ index.php?hal=house_size&get=new
+
+RewriteRule ^type-of-receipt-wh$ index.php?hal=type_of_receipt_wh
+RewriteRule ^type-of-receipt-wh/view/(.*)$ index.php?hal=type_of_receipt_wh&get=view&view=$1
+RewriteRule ^type-of-receipt-wh/edit/(.*)$ index.php?hal=type_of_receipt_wh&get=edit&view=$1
+RewriteRule ^type-of-receipt-wh/new$ index.php?hal=type_of_receipt_wh&get=new
+
+RewriteRule ^type-of-out-wh$ index.php?hal=type_of_out_wh
+RewriteRule ^type-of-out-wh/view/(.*)$ index.php?hal=type_of_out_wh&get=view&view=$1
+RewriteRule ^type-of-out-wh/edit/(.*)$ index.php?hal=type_of_out_wh&get=edit&view=$1
+RewriteRule ^type-of-out-wh/new$ index.php?hal=type_of_out_wh&get=new
+
+RewriteRule ^journal-voucher$ index.php?hal=journal_voucher
+RewriteRule ^tutup-buku$ index.php?hal=tutup_buku
+
+RewriteRule ^report-finance-balance$ index.php?hal=report_finance_balance
+RewriteRule ^report-bank-cash$ index.php?hal=report_bank_cash
+RewriteRule ^report-cash-receipt$ index.php?hal=report_cash_receipt
+RewriteRule ^report-cash-payment$ index.php?hal=report_cash_payment
+RewriteRule ^report-inventory$ index.php?hal=report_inventory
+
+RewriteRule ^error-page$ index.php?hal=error_page
+
+RewriteRule ^settings$ index.php?hal=settings

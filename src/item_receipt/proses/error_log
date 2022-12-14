@@ -1,0 +1,11 @@
+[10-Aug-2022 06:56:30 UTC] PHP Parse error:  syntax error, unexpected '2022' (T_LNUMBER), expecting ')' in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 64
+[10-Aug-2022 06:56:39 UTC] PHP Parse error:  syntax error, unexpected '2022' (T_LNUMBER), expecting ')' in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 64
+[10-Aug-2022 06:56:43 UTC] PHP Parse error:  syntax error, unexpected '2022' (T_LNUMBER), expecting ')' in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 64
+[10-Aug-2022 06:57:14 UTC] PHP Parse error:  syntax error, unexpected '2022' (T_LNUMBER), expecting ')' in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 64
+[10-Aug-2022 07:14:19 UTC] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 116
+[10-Aug-2022 07:14:36 UTC] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 116
+[10-Aug-2022 07:14:40 UTC] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 116
+[10-Aug-2022 07:16:04 UTC] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 116
+[10-Aug-2022 07:16:22 UTC] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 116
+[10-Aug-2022 08:12:42 UTC] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 118
+[10-Aug-2022 08:48:19 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/u1711122/public_html/rw-05/src/item_receipt/proses/get_data_proses.php on line 118

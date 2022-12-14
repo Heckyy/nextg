@@ -1,0 +1,58 @@
+[13-Jul-2022 13:29:21 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 13:29:21 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 365
+[13-Jul-2022 13:29:21 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 13:29:21 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 414
+[13-Jul-2022 13:29:21 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 13:29:21 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1511
+[13-Jul-2022 13:29:21 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1521
+[13-Jul-2022 13:29:21 Asia/Jakarta] PHP Warning:  ZipArchive::close(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1559
+[13-Jul-2022 13:29:21 Asia/Jakarta] PHP Fatal error:  Uncaught PhpOffice\PhpSpreadsheet\Exception: Your requested sheet index: -1 is out of bounds. The actual number of sheets is 0. in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php:695
+Stack trace:
+#0 /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php(580): PhpOffice\PhpSpreadsheet\Spreadsheet->getSheet(-1)
+#1 /home/u1711122/public_html/rw-05/src/cash_receipt/proses/proses.php(282): PhpOffice\PhpSpreadsheet\Spreadsheet->getActiveSheet()
+#2 {main}
+  thrown in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php on line 695
+[13-Jul-2022 14:01:37 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 14:01:37 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 365
+[13-Jul-2022 14:01:37 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 14:01:37 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 414
+[13-Jul-2022 14:01:37 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 14:01:37 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1511
+[13-Jul-2022 14:01:37 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1521
+[13-Jul-2022 14:01:37 Asia/Jakarta] PHP Warning:  ZipArchive::close(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1559
+[13-Jul-2022 14:01:37 Asia/Jakarta] PHP Fatal error:  Uncaught PhpOffice\PhpSpreadsheet\Exception: Your requested sheet index: -1 is out of bounds. The actual number of sheets is 0. in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php:695
+Stack trace:
+#0 /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php(580): PhpOffice\PhpSpreadsheet\Spreadsheet->getSheet(-1)
+#1 /home/u1711122/public_html/rw-05/src/cash_receipt/proses/proses.php(282): PhpOffice\PhpSpreadsheet\Spreadsheet->getActiveSheet()
+#2 {main}
+  thrown in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php on line 695
+[13-Jul-2022 14:02:56 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 14:02:56 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 365
+[13-Jul-2022 14:02:56 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 14:02:56 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 414
+[13-Jul-2022 14:02:56 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 14:02:56 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1511
+[13-Jul-2022 14:02:56 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1521
+[13-Jul-2022 14:02:56 Asia/Jakarta] PHP Warning:  ZipArchive::close(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1559
+[13-Jul-2022 14:02:56 Asia/Jakarta] PHP Fatal error:  Uncaught PhpOffice\PhpSpreadsheet\Exception: Your requested sheet index: -1 is out of bounds. The actual number of sheets is 0. in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php:695
+Stack trace:
+#0 /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php(580): PhpOffice\PhpSpreadsheet\Spreadsheet->getSheet(-1)
+#1 /home/u1711122/public_html/rw-05/src/cash_receipt/proses/proses.php(282): PhpOffice\PhpSpreadsheet\Spreadsheet->getActiveSheet()
+#2 {main}
+  thrown in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php on line 695
+[13-Jul-2022 14:04:00 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 14:04:00 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 365
+[13-Jul-2022 14:04:00 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 14:04:00 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 414
+[13-Jul-2022 14:04:00 Asia/Jakarta] PHP Warning:  ZipArchive::getFromName(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 325
+[13-Jul-2022 14:04:00 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1511
+[13-Jul-2022 14:04:00 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1521
+[13-Jul-2022 14:04:00 Asia/Jakarta] PHP Warning:  ZipArchive::close(): Invalid or uninitialized Zip object in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 1559
+[13-Jul-2022 14:04:00 Asia/Jakarta] PHP Fatal error:  Uncaught PhpOffice\PhpSpreadsheet\Exception: Your requested sheet index: -1 is out of bounds. The actual number of sheets is 0. in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php:695
+Stack trace:
+#0 /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php(580): PhpOffice\PhpSpreadsheet\Spreadsheet->getSheet(-1)
+#1 /home/u1711122/public_html/rw-05/src/cash_receipt/proses/proses.php(282): PhpOffice\PhpSpreadsheet\Spreadsheet->getActiveSheet()
+#2 {main}
+  thrown in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php on line 695
+[31-Aug-2022 10:48:24 Asia/Jakarta] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 528384 bytes) in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php on line 2582
+[31-Aug-2022 10:49:14 Asia/Jakarta] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 528384 bytes) in /home/u1711122/public_html/rw-05/core/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php on line 2582
