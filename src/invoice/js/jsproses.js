@@ -68,12 +68,6 @@ $(document).ready(function () {
                     "</td>";
                   html += "<td>" + trk.tanggal + "</td>";
                   html += "<td>" + trk.pemilik + "</td>";
-                  // html +=
-                  //   "<td><a href='localhost/nextg/rw05/invoice?nomor_tagihan=" +
-                  //   trk.nomor +
-                  //   "'>" +
-                  //   trk.tagihan +
-                  //   "</a></td>";
                   html +=
                     "<td style='color:blue;'><button style='background-color:transparent;border:none;' type='button' data-bs-toggle='modal' data-bs-target='#myModal'>" +
                     trk.tagihan +

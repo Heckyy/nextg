@@ -43,23 +43,36 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 
 		//Line 44 - 63 : Select Data berdasarkan sudah bayar atau belum
 		if ($select_dues_type == "Unpaid") {
+			$result_nominal_tagihan = 0;
 			$datas = $db->selectpage('tb_invoice_fix', 'status = "unpaid" && tanggal_tgh LIKE "%' . $priod . '%" && pemilik LIKE"%' . $ubah_pencarian . '%"', 'tanggal_tgh', "ASC", $startFrom, $perPage);
+			$datas_all = $db->select('tb_invoice_fix', 'status = "unpaid" && tanggal_tgh LIKE "%' . $priod . '%" && pemilik LIKE"%' . $ubah_pencarian . '%"', 'tanggal_tgh', "ASC");
 			$query_sum_nominal_tagihan = "SELECT SUM(nominal_tagihan) as nominal_tagihan from tb_invoice_fix where status = 'unpaid' && tanggal_tgh like'%" . $priod . "%'";
-			$sum_nominal_tagihan = $db->selectAll($query_sum_nominal_tagihan);
-			$result_nominal_tagihan = mysqli_fetch_assoc($sum_nominal_tagihan);
-			$result_nominal_tagihan2 = (int)$result_nominal_tagihan;
+			while ($data = mysqli_fetch_assoc($datas_all)) {
+
+				$nominal = intval($data['nominal_tagihan']);
+				$result_nominal_tagihan += $nominal;
+				$result_nominal_tagihan2 = (int)$result_nominal_tagihan;
+			};
 		} else if ($select_dues_type == "Paid") {
+			$result_nominal_tagihan = 0;
 			$datas = $db->selectpage('tb_invoice_fix', 'status = "paid" && tanggal_tgh LIKE "%' . $priod . '%" && pemilik LIKE"%' . $ubah_pencarian . '%"', 'tanggal_tgh', "ASC", $startFrom, $perPage);
-			$query_sum_nominal_tagihan = "SELECT SUM(nominal_tagihan) as nominal_tagihan from tb_invoice_fix where status = 'paid' && tanggal_tgh LIKE '%" . $priod . "%'";
-			$sum_nominal_tagihan = $db->selectAll($query_sum_nominal_tagihan);
-			$result_nominal_tagihan = mysqli_fetch_assoc($sum_nominal_tagihan);
-			$result_nominal_tagihan2 = (int)$result_nominal_tagihan;
+			$datas = $db->select('tb_invoice_fix', 'status = "paid" && tanggal_tgh LIKE "%' . $priod . '%" && pemilik LIKE"%' . $ubah_pencarian . '%"', 'tanggal_tgh', "ASC");
+			while ($data = mysqli_fetch_assoc($datas_all)) {
+
+				$nominal = intval($data['nominal_tagihan']);
+				$result_nominal_tagihan += $nominal;
+				$result_nominal_tagihan2 = (int)$result_nominal_tagihan;
+			};
 		} else {
+			$result_nominal_tagihan = 0;
 			$datas = $db->selectpage('tb_invoice_fix', 'tanggal_tgh LIKE "%' . $priod . '%" && pemilik LIKE"%' . $ubah_pencarian . '%"', 'tanggal_tgh', "ASC", $startFrom, $perPage);
-			$query_sum_nominal_tagihan = "SELECT SUM(nominal_tagihan) as nominal_tagihan from tb_invoice_fix where tanggal_tgh like '%" . $priod . "%'";
-			$sum_nominal_tagihan = $db->selectAll($query_sum_nominal_tagihan);
-			$result_nominal_tagihan = mysqli_fetch_assoc($sum_nominal_tagihan);
-			$result_nominal_tagihan2 = (int)$result_nominal_tagihan;
+			$datas_all = $db->select('tb_invoice_fix', 'tanggal_tgh LIKE "%' . $priod . '%" && pemilik LIKE"%' . $ubah_pencarian . '%"', 'tanggal_tgh', "ASC");
+			while ($data = mysqli_fetch_assoc($datas_all)) {
+
+				$nominal = intval($data['nominal_tagihan']);
+				$result_nominal_tagihan += $nominal;
+				$result_nominal_tagihan2 = (int)$result_nominal_tagihan;
+			};
 		}
 		//Line 65 - 67 : Untuk mengembalikan data yang tidak ada ketika mencari
 		if (mysqli_num_rows($datas) == 0) {
@@ -81,7 +94,7 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 			$bayar = "Rp." . number_format($intBayar, 0, ',', ',');
 			$sisa = "Rp." . number_format($intSisa, 0, ',', ',');
 			$total_bayar = $result_nominal_tagihan['nominal_tagihan'];
-			$total_bayar_fix = "Rp. " . number_format($total_bayar, 0, ",", ",");
+			$total_bayar_fix = "Rp. " . number_format($result_nominal_tagihan2, 0, ",", ",");
 			$rows[] = array(
 				"no" => $nomor_urut,
 				"nomor" => $nomor_tgh,

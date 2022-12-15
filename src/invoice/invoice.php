@@ -1,10 +1,8 @@
 <?php
 class invoice
 {
-
 	function view_invoice($db, $e, $library_class, $view, $page)
 	{
-
 		if ($_SESSION['invoice'] == 1) {
 			$select_type = 'all';
 			$perPage = 30;
@@ -95,7 +93,7 @@ class invoice
 				$cek_error = '<tr><td colspan="12">Data Tidak Ada</td></tr>';
 			}
 			$bulan = array('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
-			$tahun = $library_class->tahun();
+			$tahun = $library_class->stahun();
 ?>
 
 			<script src="<?php echo $e; ?>/src/invoice/js/jsproses.js"></script>
