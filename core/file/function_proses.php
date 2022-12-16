@@ -11,7 +11,7 @@ class db
 	var $mysqli_user_app     = "root";
 	var $mysqli_password_app = "";
 
-	var $hewan;
+
 
 	function __construct()
 	{

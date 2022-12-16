@@ -93,7 +93,7 @@ class invoice
 				$cek_error = '<tr><td colspan="12">Data Tidak Ada</td></tr>';
 			}
 			$bulan = array('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
-			$tahun = $library_class->stahun();
+			$tahun = $library_class->tahun();
 ?>
 
 			<script src="<?php echo $e; ?>/src/invoice/js/jsproses.js"></script>
@@ -150,13 +150,11 @@ class invoice
 												$type_bayars = array("Paid", "Unpaid");
 												foreach ($type_bayars as $type_bayar) {
 												?>
-
 													<option value="<?php echo $type_bayar; ?>" <?php if ($type_bayar == $select_type) {
 																									echo "selected";
 																								} ?>>
 														<?php echo $type_bayar; ?>
 													</option>
-
 												<?php
 												}
 												?>

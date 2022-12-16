@@ -75,9 +75,7 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 			};
 		}
 		//Line 65 - 67 : Untuk mengembalikan data yang tidak ada ketika mencari
-		if (mysqli_num_rows($datas) == 0) {
-			$rows = 1;
-		}
+
 		$nomor_urut = 1;
 		$jumlah_datas = mysqli_num_rows($datas);
 		$total_bayar = 0;

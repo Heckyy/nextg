@@ -46,42 +46,42 @@ $(document).ready(function () {
           success: function (data) {
             response = JSON.parse(data);
             // Untuk mengecek apakah data yang di cari ada atau tidak, jika tidak ada makan pagination tidak di tampilkan
-            if (response == 1) {
-              var pagination = document.getElementById("pagination");
-              pagination.classList.add("d-none");
-              html = '<tr><td colspan="12">Data not found!</td></tr>';
-            } else {
-              total_bayar = 0;
-              total_tagihan_bayar = response[0].total_tagihan;
-              html +=
-                "<tr><td colspan = '12' align='right'><b>Grand Total : " +
-                total_tagihan_bayar +
-                "</b></td></tr>";
-              if (response.length) {
-                $.each(response, function (key, trk) {
-                  nomor_tagihan = trk.nomor;
-                  html += "<tr>";
-                  html += "<td align='center'>" + trk.no + "</td>";
-                  html +=
-                    "<td id='no_tagihan' data-id='TGH20221100001'>" +
-                    trk.nomor +
-                    "</td>";
-                  html += "<td>" + trk.tanggal + "</td>";
-                  html += "<td>" + trk.pemilik + "</td>";
-                  html +=
-                    "<td style='color:blue;'><button style='background-color:transparent;border:none;' type='button' data-bs-toggle='modal' data-bs-target='#myModal'>" +
-                    trk.tagihan +
-                    "</button ></td>";
-                  html += "<td>" + trk.bayar + "</td>";
-                  html += "<td>" + trk.sisa + "</td>";
-                  html += "<td>" + trk.catatan + "</td>";
-                  html += "<td align='center'>" + trk.status + "</td>";
-                  html += "</tr>";
-                  total_tagihan_bayar = Number(trk.total_bayar);
-                  total_tagihan_bayar2 = total_tagihan_bayar.simpleMoneyFormat;
-                });
-              }
+            //if (response == 1) {
+            //var pagination = document.getElementById("pagination");
+            //pagination.classList.add("d-none");
+            //html = '<tr><td colspan="12">Data not found!</td></tr>';
+            //} else {
+            total_bayar = 0;
+            total_tagihan_bayar = response[0].total_tagihan;
+            html +=
+              "<tr><td colspan = '12' align='right'><b>Grand Total : " +
+              total_tagihan_bayar +
+              "</b></td></tr>";
+            if (response.length) {
+              $.each(response, function (key, trk) {
+                nomor_tagihan = trk.nomor;
+                html += "<tr>";
+                html += "<td align='center'>" + trk.no + "</td>";
+                html +=
+                  "<td id='no_tagihan' data-id='TGH20221100001'>" +
+                  trk.nomor +
+                  "</td>";
+                html += "<td>" + trk.tanggal + "</td>";
+                html += "<td>" + trk.pemilik + "</td>";
+                html +=
+                  "<td style='color:blue;'><button style='background-color:transparent;border:none;' type='button' data-bs-toggle='modal' data-bs-target='#myModal'>" +
+                  trk.tagihan +
+                  "</button ></td>";
+                html += "<td>" + trk.bayar + "</td>";
+                html += "<td>" + trk.sisa + "</td>";
+                html += "<td>" + trk.catatan + "</td>";
+                html += "<td align='center'>" + trk.status + "</td>";
+                html += "</tr>";
+                total_tagihan_bayar = Number(trk.total_bayar);
+                total_tagihan_bayar2 = total_tagihan_bayar.simpleMoneyFormat;
+              });
             }
+            //}
             $("#nomor_tagihan").html(nomor_tagihan);
             $("#data_view").html(html);
           },
@@ -104,7 +104,7 @@ $(document).ready(function () {
     var tahun = document.getElementById("tahun").value;
     var tipe_bayar = document.getElementById("dues_type").value;
     var cari = document.getElementById("cari").value;
-    alert(cari);
+    //alert(cari);
     var data;
     data += "&bulan=" + bulan;
     console.log(data);
