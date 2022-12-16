@@ -1,12 +1,10 @@
 <?php
 session_start();
-
 if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 	include_once "./../../../core/file/function_proses.php";
 	include_once "./../../../core/file/library.php";
 	$db = new db();
 	$library_class = new library_class();
-
 	if ($_POST['proses'] == 'tarik_data') {
 		$bulan = $_POST['bulan'];
 		$tahun = $_POST['tahun'];
@@ -40,7 +38,6 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 			$select_bulan = $library_class->bulan();
 			$priod = $select_tahun . '-' . $select_bulan;
 		}
-
 		//Line 44 - 63 : Select Data berdasarkan sudah bayar atau belum
 		if ($select_dues_type == "Unpaid") {
 			$result_nominal_tagihan = 0;
@@ -108,9 +105,7 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 			);
 			$nomor_urut++;
 		}
-
 		echo json_encode($rows);
-
 		//}
 	}
 }
