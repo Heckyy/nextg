@@ -85,7 +85,7 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 
 			// echo $previous_month_date;
 
-			// Get Ending Saldo From Previous Month For To Be Made Begining Saldo on This Month
+			// Get Ending Saldo From Previous Month For To Be Made Begining Saldo on Current Month
 			$query_get_data_previous_month = "SELECT * from tb_priod where id_bank_cash='" . $select_bank_pilih . "' AND priod = '" . $date_previous_month . "'";
 			$data_previous_month = $db->selectAll($query_get_data_previous_month);
 
