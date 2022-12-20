@@ -42,12 +42,6 @@ class starting_balance
 						<div class="col-sm-2 col-lg-3">
 							<input type="date" name="periode" id="periode" value="<?= $date; ?>" class="form-control square">
 						</div>
-						<div class="col-sm-2 col-lg-2" align="right">
-							Date
-						</div>
-						<div class="col-sm-2 col-lg-2">
-							<input type="text" name="tanggal" id="tanggal" value="<?php echo $date; ?>" class="form-control square" required="required" disabled="disabled">
-						</div>
 					</div>
 					<div class="space_line row">
 						<div class="col-sm-2 col-lg-2">
@@ -63,10 +57,10 @@ class starting_balance
 						</div>
 						<div class="col-sm-2 col-lg-3">
 							<select id="divisi" name="divisi" class="form-control square">
-
-
-
-
+								<option value="">Select</option>
+								<?php while ($data = mysqli_fetch_assoc($get_data_bank)) : ?>
+									<option value="<?= $data['id_bank_cash']; ?>"> <?php echo $data['bank_cash']; ?></option>
+								<?php endwhile; ?>
 							</select>
 						</div>
 					</div>
