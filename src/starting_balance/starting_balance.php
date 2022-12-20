@@ -31,53 +31,25 @@ class starting_balance
 							Periode
 						</div>
 						<div class="col-sm-2 col-lg-3">
-							<input type="date" name="periode" id="periode" value="<?= $date; ?>" class="form-control square">
+							<input type="date" name="periode" id="periode" value="<?= $date; ?>" class="form-control square" require="required">
 						</div>
-						<div class="col-sm-2 col-lg-2" align="right">
-							Date
-						</div>
-						<div class="col-sm-2 col-lg-2">
-							<input type="text" name="tanggal" id="tanggal" value="<?php echo $date; ?>" class="form-control square" required="required" disabled="disabled">
-						</div>
+
+
 					</div>
 					<div class="space_line row">
 						<div class="col-sm-2 col-lg-2">
 							Nominal
 						</div>
 						<div class="col-sm-3 col-lg-3">
-							<input type="text" name="nominal" id="nominal" class="form-control square" required="required">
+							<input type="text" name="nominal" id="nominal" class="form-control square" required="required" autocomplete="off">
 						</div>
 					</div>
-					<div class="space_line row">
-						<div class="col-sm-2 col-lg-2">
-							Division
-						</div>
-						<div class="col-sm-2 col-lg-3">
-							<select id="divisi" name="divisi" class="form-control square" disabled="disabled">
-								<option value="">Select</option>
-
-
-							<?php
-						}
-							?>
-							</select>
-						</div>
-					</div>
-					<div class="space_line row">
-						<div class="col-sm-2 col-lg-2">
-							Relocation
-						</div>
-						<div class="col-sm-2 col-lg-3">
-							<input type="text" name="tanggal" id="tanggal" value="<?php echo $date; ?>" class="form-control square" required="required" disabled="disabled">
-						</div>
-					</div>
-
 					<div class="space_line row">
 						<div class="col-sm-2 col-lg-2">
 							Note
 						</div>
 						<div class="col-sm-5 col-lg-5">
-							<textarea name="note" id="note" class="form-control square textarea-edit"></textarea>
+							<textarea name="note" id="note" class="form-control square textarea-edit" autocomplete="off"></textarea>
 						</div>
 					</div>
 
@@ -91,8 +63,9 @@ class starting_balance
 
 
 
-	<?php
+<?php
+		}
 	}
 }
 
-	?>
+?>
