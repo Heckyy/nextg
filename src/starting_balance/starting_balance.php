@@ -15,14 +15,7 @@ class starting_balance
 			$query_get_data_bank = "SELECT * from tb_bank_cash";
 			$get_data_bank = $db->selectAll($query_get_data_bank);
 			$result_get_data_bank = mysqli_fetch_assoc($get_data_bank);
-			var_dump($result_get_data_bank['bank_cash']);
-
-
-
-
 ?>
-
-
 			<script src="<?php echo $e; ?>/src/starting_balance/js/js_proses.js"></script>
 			<div class="app-card-header p-3 main-content container-fluid">
 				<div class="row justify-content-between align-items-center line">
@@ -64,8 +57,6 @@ class starting_balance
 							</select>
 						</div>
 					</div>
-
-
 					<div class="space_line row">
 						<div class="col-sm-2 col-lg-2">
 							Note
@@ -74,7 +65,6 @@ class starting_balance
 							<textarea name="note" id="note" class="form-control square textarea-edit"></textarea>
 						</div>
 					</div>
-
 					<div class="space_line row">
 						<div class="col-lg-12">
 							<button type="submit" id="btn" class="btn btn-sm btn-success btn-custom">Save</button>
@@ -82,9 +72,6 @@ class starting_balance
 					</div>
 				</form>
 			</div>
-
-
-
 <?php
 		}
 	}
