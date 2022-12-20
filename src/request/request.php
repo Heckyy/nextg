@@ -36,7 +36,7 @@ class request
 				$priod = $select_tahun;
 			}
 
-			var_dump($select_bulan);
+			//var_dump($select_bulan);
 
 
 
