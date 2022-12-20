@@ -21,14 +21,10 @@ $(document).ready(function () {
   $("#nominal").keyup(rupiah);
 
   $("#new").submit(function () {
-    document.getElementById("btn-save").disabled = true;
-    var bmb = document.getElementById("delivery_order").value;
-    var tanggal = document.getElementById("tanggal").value;
-    var supplier = document.getElementById("supplier").value;
-    var number = document.getElementById("number").value;
-    var delivery_order = document.getElementById("delivery_order").value;
-    var invoice = document.getElementById("invoice").value;
-    var note = document.getElementById("note").value;
+    document.getElementById("btn").disabled = true;
+    var periode = document.getElementById("periode").value;
+    var nominal = document.getElementById("nominal").value;
+    alert(periode);
     var data = {
       bmb: bmb,
       tanggal: tanggal,

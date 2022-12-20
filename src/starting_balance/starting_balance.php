@@ -11,7 +11,16 @@ class starting_balance
 			$realTime = date('H:i:s');
 			$tanggal 	= $library_class->tanggal();
 			$bulan 		= $library_class->bulan();
-			$tahun 		= $library_class->tahun(); ?>
+			$tahun 		= $library_class->tahun();
+			$query_get_data_bank = "SELECT * from tb_bank_cash";
+			$get_data_bank = $db->selectAll($query_get_data_bank);
+			$result_get_data_bank = mysqli_fetch_assoc($get_data_bank);
+			var_dump($result_get_data_bank['bank_cash']);
+
+
+
+
+?>
 
 
 			<script src="<?php echo $e; ?>/src/starting_balance/js/js_proses.js"></script>
@@ -31,10 +40,14 @@ class starting_balance
 							Periode
 						</div>
 						<div class="col-sm-2 col-lg-3">
-							<input type="date" name="periode" id="periode" value="<?= $date; ?>" class="form-control square" require="required">
+							<input type="date" name="periode" id="periode" value="<?= $date; ?>" class="form-control square">
 						</div>
-
-
+						<div class="col-sm-2 col-lg-2" align="right">
+							Date
+						</div>
+						<div class="col-sm-2 col-lg-2">
+							<input type="text" name="tanggal" id="tanggal" value="<?php echo $date; ?>" class="form-control square" required="required" disabled="disabled">
+						</div>
 					</div>
 					<div class="space_line row">
 						<div class="col-sm-2 col-lg-2">
@@ -46,10 +59,25 @@ class starting_balance
 					</div>
 					<div class="space_line row">
 						<div class="col-sm-2 col-lg-2">
+							Bank
+						</div>
+						<div class="col-sm-2 col-lg-3">
+							<select id="divisi" name="divisi" class="form-control square">
+
+
+
+
+							</select>
+						</div>
+					</div>
+
+
+					<div class="space_line row">
+						<div class="col-sm-2 col-lg-2">
 							Note
 						</div>
 						<div class="col-sm-5 col-lg-5">
-							<textarea name="note" id="note" class="form-control square textarea-edit" autocomplete="off"></textarea>
+							<textarea name="note" id="note" class="form-control square textarea-edit"></textarea>
 						</div>
 					</div>
 
