@@ -3,7 +3,6 @@
   {
     function menu_top($e)
     {
-
   ?>
       <nav class="navbar navbar-header navbar-expand navbar-light fixed-top bg-white shadow">
         <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
@@ -13,9 +12,7 @@
         <span class="logo">
           MANAGEMENT RW 05
         </span>
-
         <div class="collapse navbar-collapse d-flex align-items-end " id="navbarSupportedContent">
-
           <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto ">
             <div class="text-left ms-auto"><b>Hello, <?= $_SESSION['employee_name'] ?></b></div>
             <li class="dropdown nav-icon d-none">
@@ -50,7 +47,6 @@
                 ?>
                   <a class="dropdown-item" href="<?php echo $e; ?>/settings">Settings</a>
                 <?php
-
                 }
                 ?>
                 <a class="dropdown-item" href="#" onclick="change_password();">Change Password</a>
@@ -62,11 +58,9 @@
         </div>
       </nav>
     <?php
-
     }
     function menu_view($e, $db, $hal)
     {
-
     ?>
       <style type="text/css">
         input {
@@ -462,7 +456,7 @@
                 </li>
               <?php
               }
-              if ($_SESSION['report_finance_balance'] == 1 || $_SESSION['report_bank_cash'] == 1 || $_SESSION['report_cash_receipt'] == 1 || $_SESSION['report_cash_payment'] == 1 || $_SESSION['bank_cash'] == 1 || $_SESSION['type_of_receipt'] == 1 || $_SESSION['type_of_payment'] == 1 || $_SESSION['cash_receipt'] == 1 || $_SESSION['cash_payment'] == 1 || $_SESSION['invoice'] == 1) {
+              if ($_SESSION['report_finance_balance'] == 1 || $_SESSION['report_bank_cash'] == 1 || $_SESSION['report_cash_receipt'] == 1 || $_SESSION['report_cash_payment'] == 1 || $_SESSION['bank_cash'] == 1 || $_SESSION['type_of_receipt'] == 1 || $_SESSION['type_of_payment'] == 1 || $_SESSION['cash_receipt'] == 1 || $_SESSION['cash_payment'] == 1 || $_SESSION['invoice'] == 1 || $_SESSION['begining_balance'] == 1) {
               ?>
                 <li class="sidebar-item has-sub <?php if ($hal == 'report_finance_balance' || $hal == 'report_bank_cash' || $hal == 'report_cash_receipt' || $hal == 'report_cash_payment' || $hal == 'bank_cash' || $hal == 'type_of_receipt' || $hal == 'type_of_paym
                 ent' || $hal == 'cash_receipt' || $hal == 'cash_payment' || $hal == 'invoice') {
@@ -476,6 +470,18 @@
                                         echo 'active';
                                       } ?>">
                     <?php
+
+                    if ($_SESSION['begining_balance'] == 1) {
+                    ?>
+                      <li class="<?php if ($hal == 'starting_balance') {
+                                    echo 'active';
+                                  } ?>">
+                        <a href="<?php echo $e; ?>/starting-balance">
+                          Starting Balance
+                        </a>
+                      </li>
+                    <?php
+                    }
                     if ($_SESSION['bank_cash'] == 1) {
                     ?>
                       <li class="<?php if ($hal == 'bank_cash') {
@@ -524,6 +530,15 @@
                                     echo 'active';
                                   } ?>">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#cash_payment_modal">Cash Payment</a>
+                      </li>
+                    <?php
+                    }
+                    if ($_SESSION['close_book'] == 1) {
+                    ?>
+                      <li class="<?php if ($hal == 'close_book') {
+                                    echo 'active';
+                                  } ?>">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#cash_payment_modal">Close Book</a>
                       </li>
                     <?php
                     }

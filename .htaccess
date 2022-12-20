@@ -114,6 +114,8 @@ RewriteRule ^bank-cash/new$ index.php?hal=bank_cash&get=new
 
 RewriteRule ^bank-cash/input-saldo$ index.php?hal=input_saldo
 
+RewriteRule ^starting-balance$ index.php?hal=starting_balance
+
 RewriteRule ^type-of-receipt$ index.php?hal=type_of_receipt
 RewriteRule ^type-of-receipt/view/(.*)$ index.php?hal=type_of_receipt&get=view&view=$1
 RewriteRule ^type-of-receipt/edit/(.*)$ index.php?hal=type_of_receipt&get=edit&view=$1

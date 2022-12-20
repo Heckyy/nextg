@@ -196,6 +196,8 @@ if (!empty($_SESSION['code_employee'])) {
     $_SESSION['report_general_ledger']  = $acs['report_general_ledger'];
     $_SESSION['report_balance_sheet']   = $acs['report_balance_sheet'];
     $_SESSION['report_cash_flow_statement'] = $acs['report_cash_flow_statement'];
+    $_SESSION['begining_balance'] = $acs['begining_balance'];
+    $_SESSION['close_book'] = $acs['close_book'];
     $data = $db->select('tb_employee', 'code_employee = "' . $_SESSION['code_employee'] . '"', 'code_employee', 'ASC');
     $dt = mysqli_num_rows($data);
     $result_data = mysqli_fetch_assoc($data);

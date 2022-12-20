@@ -1051,6 +1051,13 @@ class all_file
 		}
 	}
 
+	function hal_starting_balance($db, $e, $library_class, $get, $view, $page)
+	{
+		include_once("src/starting_balance/starting_balance.php");
+		$starting_balance = new starting_balance();
+		$starting_balance->create_starting_balance($db, $e, $library_class, $view, $page);
+	}
+
 	function hal_po_maintenance($db, $e, $library_class, $get, $view, $page)
 	{
 		if (!empty($get)) {
