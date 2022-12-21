@@ -63,8 +63,15 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 			$query_get_data_previous_month = "SELECT * from tb_priod where id_bank_cash='" . $select_bank_pilih . "' AND priod = '" . $previous_priod . "'";
 			$data_previous_month = $db->selectAll($query_get_data_previous_month);
 
+
 			$result_data_previous_month = mysqli_fetch_assoc($data_previous_month);
-			$saldo_awal_bulan = $result_data_previous_month['saldo_awal'];
+			if ($result_data_previous_month['saldo_akhir'] != null) {
+
+				$saldo_awal_bulan = $result_data_previous_month['saldo_akhir'];
+			} else {
+
+				$saldo_awal_bulan = $result_data_previous_month['saldo_awal'];
+			}
 			// echo $result_data_previous_month['nominal'];
 			if ($page == 1) {
 				$_SESSION['total' . $page] = 0;

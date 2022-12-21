@@ -74,6 +74,8 @@ $(document).ready(function () {
             timer: 2000,
           });
           document.getElementById("btn").disabled = false;
+          document.location.href =
+            localStorage.getItem("data_link") + "/starting-balance";
         }
       },
     });
