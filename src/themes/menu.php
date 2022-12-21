@@ -538,7 +538,7 @@
                       <li class="<?php if ($hal == 'close_book') {
                                     echo 'active';
                                   } ?>">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#cash_payment_modal">Close Book</a>
+                        <a href="<?php echo $e; ?>/close-book">Close Book</a>
                       </li>
                     <?php
                     }
@@ -630,15 +630,6 @@
                                     echo 'active';
                                   } ?>">
                         <a href="<?php echo $e; ?>/journal-voucher">Journal Voucher</a>
-                      </li>
-                    <?php
-                    }
-                    if ($_SESSION['tutup_buku'] == 1) {
-                    ?>
-                      <li class="<?php if ($hal == 'tutup_buku') {
-                                    echo 'active';
-                                  } ?>">
-                        <a href="<?php echo $e; ?>/tutup-buku">Close Book</a>
                       </li>
                     <?php
                     }

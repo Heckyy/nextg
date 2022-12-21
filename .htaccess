@@ -238,6 +238,7 @@ RewriteRule ^type-of-out-wh/new$ index.php?hal=type_of_out_wh&get=new
 
 RewriteRule ^journal-voucher$ index.php?hal=journal_voucher
 RewriteRule ^tutup-buku$ index.php?hal=tutup_buku
+RewriteRule ^close-book$ index.php?hal=close_book
 
 RewriteRule ^report-finance-balance$ index.php?hal=report_finance_balance
 RewriteRule ^report-bank-cash$ index.php?hal=report_bank_cash

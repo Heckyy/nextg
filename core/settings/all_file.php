@@ -1057,6 +1057,12 @@ class all_file
 		$starting_balance = new starting_balance();
 		$starting_balance->create_starting_balance($db, $e, $library_class, $view, $page);
 	}
+	function hal_close_book($db, $e, $library_class, $get, $view, $page)
+	{
+		include_once("src/close_book/close_book.php");
+		$close_book = new close_book();
+		$close_book->create_close_book($db, $e, $library_class, $view, $page);
+	}
 
 	function hal_po_maintenance($db, $e, $library_class, $get, $view, $page)
 	{
