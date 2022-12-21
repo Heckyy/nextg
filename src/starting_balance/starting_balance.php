@@ -5,8 +5,7 @@ class starting_balance
 	{
 		if ($_SESSION['begining_balance'] == 1) {
 			$thisMonth = date("F - Y");
-			$date = date("d-m-Y");
-
+			$date = date("Y-m-d");
 			date_default_timezone_set("asia/jakarta");
 			$realTime = date('H:i:s');
 			$tanggal 	= $library_class->tanggal();
@@ -15,6 +14,7 @@ class starting_balance
 			$query_get_data_bank = "SELECT * from tb_bank_cash";
 			$get_data_bank = $db->selectAll($query_get_data_bank);
 			$result_get_data_bank = mysqli_fetch_assoc($get_data_bank);
+
 ?>
 			<script src="<?php echo $e; ?>/src/starting_balance/js/js_proses.js"></script>
 			<div class="app-card-header p-3 main-content container-fluid">
@@ -49,11 +49,11 @@ class starting_balance
 							Bank
 						</div>
 						<div class="col-sm-2 col-lg-3">
-							<select id="divisi" name="divisi" class="form-control square">
-								<option value="">Select</option>
-								<?php while ($data = mysqli_fetch_assoc($get_data_bank)) : ?>
+							<select id="divisi" name="divisi" class="form-control square" required="required" onchange="change()">
+								<option value="null">Select</option>
+								<?php foreach ($get_data_bank as $data) { ?>
 									<option value="<?= $data['id_bank_cash']; ?>"> <?php echo $data['bank_cash']; ?></option>
-								<?php endwhile; ?>
+								<?php }; ?>
 							</select>
 						</div>
 					</div>

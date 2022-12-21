@@ -12,138 +12,22 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 	$tahun 		= $library_class->tahun();
 	$date		= $tahun . '-' . $bulan;
 	$proses = $_POST['proses'];
-	$grand_total = 0;
+	if ($proses == "starting_balance") {
+		$periode = $_POST['periode'];
+		$explode_periode = explode("-", $periode);
+		$bulan = $explode_periode[1];
+		$tahun = $explode_periode[0];
+		$periode_fix = $tahun . "-" . $bulan;
+		$bank = $_POST['bank'];
+		$nominal = $_POST['nominal'];
+		$note = $_POST['note'];
+		// echo $nominal;
 
-	if ($proses == "tarik_po") {
-
-		$sp = $_POST['supplier'];
-		$cek = $db->select('tb_item_receipt_out', 'from_for="' . $sp . '" && status_inv_purchasing = "0"', 'id_item_receipt_out', 'DESC');
-		$resultCek = mysqli_fetch_assoc($cek);
-		$cekPo = $resultCek['status_inv_purchasing'];
-		$jum = mysqli_num_rows($cek);
-		if (($jum > 0)) {
-			echo '<option value="">Select</option>';
-			foreach ($cek as $key => $row) {
-
-				echo '<option value="' . $row['number_item_receipt_out'] . '">' . $row['number_item_receipt_out'] . " [" . $row['number_purchasing'] . "]" . " [" . $row['tanggal'] . "]" . '</option>';
-			}
+		if ($nominal != null && $bank != null) {
+			$db->insert("tb_priod", "id_bank_cash='" . $bank . "',saldo_awal='" . $nominal . "',priod='" . $periode_fix . "',note='" . $note . "'");
 		} else {
-			echo '<option value="">Select</option>';
-		}
-	}
-
-	if ($proses == "tarik_do") {
-		$bmb = $_POST['bmb'];
-		$query = "SELECT ir.number_item_receipt_out, ir.item, ir.qty, pd.amount,pd.id_purchasing_detail FROM tb_item_receipt_out_detail AS ir  JOIN tb_purchasing_detail AS pd ON pd.number_purchasing = ir.number_purchasing AND ir.qty = pd.qty AND ir.item = pd.item WHERE ir.number_item_receipt_out ='" . $bmb . "' ";
-
-		$cek = $db->selectDo($query);
-		$jum = mysqli_num_rows($cek);
-		$result = mysqli_fetch_assoc($cek);
-		$no = 1;
-		$grand_total2 = 0;
-
-		foreach ($cek as $key => $row) {
-			$total = $row['qty'] * $row['amount'];  ?>
-			<tr>
-
-				<td><?php echo $no; ?></td>
-				<td><?php echo $row['item']; ?></td>
-				<td><?php echo $row['qty']; ?></td>
-				<td><?php echo number_format($row['amount'], 2, ',', '.'); ?></td>
-				<td><?php echo number_format($total, 2, ',', '.') ?></td>
-				<td></td>
-				<?php
-				global $grand_total;
-				$grand_total += $total;
-
-
-
-				?>
-
-
-
-
-
-			</tr>
-
-
-
-
-
-
-
-
-		<?php
-			$no++;
-		} ?>
-		<tr>
-			<td colspan="6"><b>Grand Total : <?php echo number_format($grand_total, 2, ',', '.') ?></b></td>
-		</tr>
-
-
-<?php
-
-
-
-
-	}
-
-	if ($proses == "pilih_tanggal") {
-		$tanggal = $_POST['tanggal'];
-		$pecah_tanggal = explode('-', $tanggal);
-		$bulan = $pecah_tanggal['1'];
-		$tahun = $pecah_tanggal[0];
-		$tahun_potong = substr($tahun, 2, 2);
-
-		$cek = $db->select('tb_inv_purchasing', 'tanggal LIKE "%' . $tahun_potong . '%"', 'urut', 'DESC');
-		if (mysqli_num_rows($cek) > 0) {
-			$c = mysqli_fetch_assoc($cek);
-			$tambah = $c['urut'] + 1;
-			$number = 'TGH/' . $pecah_tanggal[1] . '/' . $tahun_potong . '/' . $tambah;
-			$urut = $tambah;
-		} else {
-			$urut = "1";
-			$number = 'TGH/' . $pecah_tanggal[1] . '/' . $tahun_potong . '/1';
-		}
-		echo $number;
-	}
-
-
-	if ($proses == "new") {
-		if (!empty($_POST['supplier']) && !empty($_POST['delivery_order'])) {
-			$tanggal = $_POST['tanggal'];
-			$number = $_POST['number_inv_purchasing'];
-			$supplier = $_POST['supplier'];
-			$delivery_order = $_POST['delivery_order'];
-			$invoice = $_POST['invoice'];
-			$note = $_POST['note'];
-			$bmb = $_POST['bmb'];
-			$status = 0;
-			$query = "SELECT ir.number_item_receipt_out, ir.item, ir.qty, pd.amount,pd.id_purchasing_detail FROM tb_item_receipt_out_detail AS ir LEFT JOIN tb_purchasing_detail AS pd ON pd.number_purchasing = ir.number_purchasing AND ir.qty = pd.qty AND ir.item = pd.item WHERE ir.number_item_receipt_out ='" . $bmb . "' ";
-
-			$cek1 = $db->selectDo($query);
-			$hasil = mysqli_fetch_assoc($cek1);
-			$no = 1;
-			$grand_total2 = 0;
-			foreach ($cek1 as $key => $row) {
-				$total = $row['qty'] * $row['amount'];
-				$grand_total2 += $total;
-			}
-			$explode_date = explode('-', $tanggal);
-			$bulan_potong = $explode_date[0] . '-' . $explode_date[1];
-			$cek = $db->select('tb_inv_purchasing', 'tanggal LIKE "%' . $bulan_potong . '%"', 'urut', 'DESC');
-			if (mysqli_num_rows($cek) > 0) {
-				$c = mysqli_fetch_assoc($cek);
-				$tambah = $c['urut'] + 1;
-				$urut = $tambah;
-			} else {
-				$urut = "1";
-			}
-			$db->insert('tb_inv_purchasing', 'number_inv_purchasing="' . $number . '",number_item_receipt_out="' . $delivery_order . '",tanggal="' . $tanggal . '",urut="' . $urut . '",supplier="' . $supplier . '",status="' . $status . '",total="' . $grand_total2 . '",note="' . $note . '"');
-			echo $grand_total2;
-			$db->update('tb_item_receipt_out', "status_inv_purchasing = '1'", "number_item_receipt_out =" . "'" . $bmb . "'");
+			$error = 1;
+			echo $error;
 		}
 	}
 }
-
-?>

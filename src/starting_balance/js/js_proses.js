@@ -19,50 +19,61 @@ $(document).ready(function () {
   });
 
   $("#nominal").keyup(rupiah);
-
-  $("#new").submit(function () {
+  button();
+  $("#btn").click(function () {
     document.getElementById("btn").disabled = true;
     var periode = document.getElementById("periode").value;
     var nominal = document.getElementById("nominal").value;
-    alert(periode);
+    var bank = document.getElementById("divisi").value;
+    var note = document.getElementById("note").value;
+    // alert(periode);
+    // alert(nominal);
+    // alert(bank);
+    Swal.fire({
+      title: "Loading",
+      text: "Mohon Menunggu..",
+      imageUrl:
+        localStorage.getItem("data_link") + "/assets/images/loading.gif",
+      imageWidth: 200,
+      imageHeight: 200,
+      showCancelButton: false,
+      showConfirmButton: false,
+    });
+
     var data = {
-      bmb: bmb,
-      tanggal: tanggal,
-      number_inv_purchasing: number,
-      supplier: supplier,
-      delivery_order: delivery_order,
-      invoice: invoice,
+      periode: periode,
+      nominal: nominal,
+      bank: bank,
       note: note,
-      proses: "new",
+      proses: "starting_balance",
     };
     console.log(data);
     $.ajax({
       url:
         localStorage.getItem("data_link") +
-        "/src/inv_purchasing/proses/proses.php",
+        "/src/starting_balance/proses/proses.php",
       method: "POST",
       data: data,
       type: "json",
       cache: false,
       success: function (data) {
+        // /alert(data);
         if (data == 1) {
-          document.getElementById("btn").disabled = false;
-          Swal.fire("", "Maaf, Data tidak dapat di simpan!!!", "error");
-        } else {
-          //alert(data);
           Swal.fire({
-            title: "Data Berhasil Di Simpan",
-
-            confirmButtonText: "Oke",
-          }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-              document.location.href =
-                localStorage.getItem("data_link") + "/inv_purchasing/";
-            }
+            icon: "error",
+            title: "Oops...",
+            text: "Mohon Periksa Kembali Data Yang Dimasukan!",
           });
-
-          // alert(data);
+          document.getElementById("btn").disabled = false;
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Saldo Awal Berhasil Dimasukan",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          document.getElementById("btn").disabled = false;
         }
       },
     });
@@ -90,4 +101,23 @@ function rupiah() {
   var nominal = document.getElementById("nominal").value;
   nominal = convertRupiah(this.value);
   $("#nominal").val(nominal);
+}
+
+function button() {
+  var nominal = document.getElementById("nominal").value;
+  var bank = document.getElementById("divisi").value;
+  if (bank == "null") {
+    document.getElementById("btn").disabled = true;
+  } else {
+    document.getElementById("btn").disabled = false;
+  }
+}
+
+function change() {
+  var bank = document.getElementById("divisi").value;
+  if (bank == "null") {
+    document.getElementById("btn").disabled = true;
+  } else {
+    document.getElementById("btn").disabled = false;
+  }
 }
