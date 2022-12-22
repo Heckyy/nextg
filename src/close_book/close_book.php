@@ -15,7 +15,7 @@ class close_book
 			$get_data_bank = $db->selectAll($query_get_data_bank);
 			$result_get_data_bank = mysqli_fetch_assoc($get_data_bank);
 ?>
-			<script src="<?php echo $e; ?>/src/starting_balance/js/js_proses.js"></script>
+			<script src="<?php echo $e; ?>/src/close_book/js/js_proses.js"></script>
 			<div class="app-card-header p-3 main-content container-fluid">
 				<div class="row justify-content-between align-items-center line">
 					<div class="col-auto">
@@ -26,50 +26,49 @@ class close_book
 				</div>
 			</div>
 			<div class="app-card-body pb-3 main-content container-fluid">
-				<form method="POST" id="new">
-					<div class="space_line row">
-						<div class="col-sm-2 col-lg-2">
-							Periode
-						</div>
-						<div class="col-sm-2 col-lg-3">
-							<input type="text" name="periode" id="periode" value="<?= $date; ?>" class="form-control square" disabled="disabled">
-						</div>
+				<div class="space_line row">
+					<div class="col-sm-2 col-lg-2">
+						Periode (System)
 					</div>
-					<div class="space_line row">
-						<div class="col-sm-2 col-lg-2">
-							Nominal
-						</div>
-						<div class="col-sm-3 col-lg-3">
-							<input type="text" name="nominal" id="nominal" class="form-control square" required="required" autocomplete="off">
-						</div>
+					<div class="col-sm-2 col-lg-3">
+						<input type="date" name="periode" id="periode" value="<?= $date; ?>" class="form-control square">
 					</div>
-					<div class="space_line row">
-						<div class="col-sm-2 col-lg-2">
-							Bank
-						</div>
-						<div class="col-sm-2 col-lg-3">
-							<select id="divisi" name="divisi" class="form-control square" required="required" onchange="change()">
-								<option value="null">Select</option>
-								<?php foreach ($get_data_bank as $data) { ?>
-									<option value="<?= $data['id_bank_cash']; ?>"> <?php echo $data['bank_cash']; ?></option>
-								<?php }; ?>
-							</select>
-						</div>
+				</div>
+				<div class="space_line row d-none">
+					<div class="col-sm-2 col-lg-2">
+						Nominal
 					</div>
-					<div class="space_line row">
-						<div class="col-sm-2 col-lg-2">
-							Note
-						</div>
-						<div class="col-sm-5 col-lg-5">
-							<textarea name="note" id="note" class="form-control square textarea-edit"></textarea>
-						</div>
+					<div class="col-sm-3 col-lg-3">
+						<input type="text" name="nominal" id="nominal" class="form-control square" required="required" autocomplete="off">
 					</div>
-					<div class="space_line row">
-						<div class="col-lg-12">
-							<button type="submit" id="btn" class="btn btn-sm btn-success btn-custom">Save</button>
-						</div>
+				</div>
+				<div class="space_line row">
+					<div class="col-sm-2 col-lg-2">
+						Bank
 					</div>
-				</form>
+					<div class="col-sm-2 col-lg-3">
+						<select id="divisi" name="divisi" class="form-control square" required="required" onchange="change()">
+							<option value="null">Select</option>
+							<?php foreach ($get_data_bank as $data) { ?>
+								<option value="<?= $data['id_bank_cash']; ?>"> <?php echo $data['bank_cash']; ?></option>
+							<?php }; ?>
+						</select>
+					</div>
+				</div>
+				<div class="space_line row">
+					<div class="col-sm-2 col-lg-2">
+						Note
+					</div>
+					<div class="col-sm-5 col-lg-5">
+						<textarea name="note" id="note" class="form-control square textarea-edit"></textarea>
+					</div>
+				</div>
+				<div class="space_line row">
+					<div class="col-lg-12">
+						<button type="submit" id="btn" class="btn btn-sm btn-success btn-custom">Save</button>
+					</div>
+				</div>
+
 			</div>
 
 

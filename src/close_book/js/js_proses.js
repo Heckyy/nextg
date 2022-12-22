@@ -26,7 +26,7 @@ $(document).ready(function () {
     var nominal = document.getElementById("nominal").value;
     var bank = document.getElementById("divisi").value;
     var note = document.getElementById("note").value;
-    // alert(periode);
+    //alert(periode);
     // alert(nominal);
     // alert(bank);
     Swal.fire({
@@ -39,26 +39,24 @@ $(document).ready(function () {
       showCancelButton: false,
       showConfirmButton: false,
     });
-
     var data = {
       periode: periode,
       nominal: nominal,
       bank: bank,
       note: note,
-      proses: "starting_balance",
+      proses: "close_book",
     };
     console.log(data);
     $.ajax({
       url:
-        localStorage.getItem("data_link") +
-        "/src/starting_balance/proses/proses.php",
+        localStorage.getItem("data_link") + "/src/close_book/proses/proses.php",
       method: "POST",
       data: data,
       type: "json",
       cache: false,
-      success: function (data) {
-        // /alert(data);
-        if (data == 1) {
+      success: function (response) {
+        alert(response);
+        if (response == 2) {
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -69,13 +67,13 @@ $(document).ready(function () {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Saldo Awal Berhasil Dimasukan",
+            title: "Tutup Periode Berhasil",
             showConfirmButton: false,
             timer: 2000,
           });
           document.getElementById("btn").disabled = false;
-          document.location.href =
-            localStorage.getItem("data_link") + "/starting-balance";
+          //     // document.location.href =
+          //     // localStorage.getItem("data_link") + "/close_book";
         }
       },
     });
