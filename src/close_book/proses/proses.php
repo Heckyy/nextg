@@ -43,19 +43,17 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 
 			// Get Starting Balance
 			$query_get_starting_balance = "SELECT * from tb_priod where priod='" . $previous_period . "'";
-			$result_get_starting_balance = $db->selectAll($query_get_data_current_period);
+			$result_get_starting_balance = $db->selectAll($query_get_starting_balance);
 			$final_get_starting_balance = mysqli_fetch_assoc($result_get_starting_balance);
-			$saldo_awal = "";
-			$saldo_akhir = "";
 			if (mysqli_num_rows($result_get_starting_balance) > 0) {
 				$saldo_akhir = $final_get_starting_balance['saldo_akhir'];
 
 				if ($saldo_akhir == null) {
 
-					$saldo_awal = $final_get_starting_balance['saldo_awal'];
+					$saldo_awal = intval($final_get_starting_balance['saldo_awal']);
 					$finance_balance_previous = $saldo_awal;
 				} else {
-					$finance_balance_previous = $final_get_starting_balance['saldo_akhir'];
+					$finance_balance_previous = intval($final_get_starting_balance['saldo_akhir']);
 				}
 			}
 
