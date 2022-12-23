@@ -68,12 +68,11 @@ class close_book
 						<button type="submit" id="btn" class="btn btn-sm btn-success btn-custom">Save</button>
 					</div>
 				</div>
-				<div class="space_line row">
-					<div class="col-lg-12">
-						<button type="submit" id="btn" class="btn btn-sm btn-success btn-custom">Save</button>
-					</div>
-				</div>
+
+
 			</div>
+
+
 <?php
 		}
 	}

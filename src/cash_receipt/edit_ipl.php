@@ -144,7 +144,7 @@ class edit_cash_receipt_ipl
 						Note
 					</div>
 					<div class="col-sm-5 col-lg-5">
-						<textarea name="note" id="note" class="form-control square textarea-edit" disabled="disabled"><?php echo $v['note']; ?></textarea>
+						<textarea name="note" id="note" class="form-control square textarea-edit"><?php echo $v['note']; ?></textarea>
 					</div>
 				</div>
 				<div class="space_line row">

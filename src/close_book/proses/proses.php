@@ -13,7 +13,6 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 	$date		= $tahun . '-' . $bulan;
 	$proses = $_POST['proses'];
 	if ($proses == "close_book") {
-
 		$periode = $_POST['periode'];
 		$periode2 = new DateTime($periode);
 		$periode3 = $periode2->format("Y-m");
@@ -40,6 +39,7 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 			$final_get_data_current_period = mysqli_fetch_assoc($result_get_data_current_period);
 			$tanggal_bank = $final_get_data_current_period['tanggal_bank'];
 			$jum = mysqli_num_rows($result_get_data_current_period);
+			$final_balance = 0;
 
 			// Get Starting Balance
 			$query_get_starting_balance = "SELECT * from tb_priod where priod='" . $previous_period . "'";
@@ -66,12 +66,12 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 				}
 			}
 			$final_balance += $finance_balance_previous;
-			// insert data for next periode
-
-
+			// INSERT FINAL BALANCE
+			$db->update("tb_priod", "saldo_akhir='" . $final_balance . "'", "priod='" . $periode3 . "'");
+			$db->insert("tb_priod", "id_bank_cash='" . $bank . "',saldo_awal='" . $final_balance . "',priod='" . $next_period . "',note='" . $note . "'");
 		} else {
 			$response = 2;
 		}
 	}
-	echo $final_balance;
+	echo $periode3;
 }

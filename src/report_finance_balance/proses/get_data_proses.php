@@ -29,8 +29,9 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 			$bulan_to = substr($select_to, 3, 2);
 			$tahun_to = substr($select_to, 6, 4);
 			$tanggal_akhir = $tahun_to . '-' . $bulan_to . '-' . $tanggal_to;
+			$current_period = new DateTime($select_from);
+			$period_fix = $current_period->format("Y-m");
 			$date_previous_month = new DateTime();
-
 			$select_to2 = explode('-', $select_to);
 			$previous_month = $select_to2[1] - 1;
 			$previous_priod = $select_to2[2] . "-" . $previous_month;
@@ -59,19 +60,12 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 			$date_previous_month2 = date('Y-m', strtotime('-1 month', strtotime($select_to)));
 			// $date_previous_month = $date_previous_month - 1;
 			// Get Ending Saldo From Previous Month For To Be Made Begining Saldo on Current Month
-			// $query_get_data_previous_month = "SELECT * from tb_priod where id_bank_cash='" . $select_bank_pilih . "' AND priod = '2022-11'";
-			$query_get_data_previous_month = "SELECT * from tb_priod where id_bank_cash='" . $select_bank_pilih . "' AND priod = '" . $previous_priod . "'";
+			$query_get_data_previous_month = "SELECT * from tb_priod where id_bank_cash='" . $select_bank_pilih . "' AND priod = '" . $period_fix . "'";
 			$data_previous_month = $db->selectAll($query_get_data_previous_month);
 
 
 			$result_data_previous_month = mysqli_fetch_assoc($data_previous_month);
-			if ($result_data_previous_month['saldo_akhir'] != null) {
-
-				$saldo_awal_bulan = $result_data_previous_month['saldo_akhir'];
-			} else {
-
-				$saldo_awal_bulan = $result_data_previous_month['saldo_awal'];
-			}
+			$saldo_awal_bulan = $result_data_previous_month['saldo_awal'];
 			// echo $result_data_previous_month['nominal'];
 			if ($page == 1) {
 				$_SESSION['total' . $page] = 0;
