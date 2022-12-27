@@ -451,7 +451,6 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 					$bulan_bank = substr($paid_date_asli, 3, 2);
 					$tahun_bank = substr($paid_date_asli, 6, 4);
 					$paid_date = $tahun_bank . '-' . $bulan_bank . '-' . $tanggal_bank;
-
 					if ($priod_mont < 10) {
 						$all_priod = $year_priod . '-0' . $priod_mont;
 					} else {
@@ -488,7 +487,6 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 							$db->insert('tb_population', 'code_population="' . $number_bast . '",name="' . $customer_name . '",house_number="' . $ubah_nomor . '",type_property="' . $property . '",cluster="' . $cluster . '",surface_area="' . $luas_tanah . '",cek="1"');
 						}
 						$invoice_no_db = "";
-
 						$query_cek_ipl = "SELECT * from tb_cash_receipt_payment_detail";
 						$tarik_data_ipl = $db->selectAll($query_cek_ipl);
 						$result_tarik_data_ipl = mysqli_fetch_assoc($tarik_data_ipl);
@@ -497,7 +495,6 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 						$data = "";
 						foreach ($tarik_data_ipl as $data_ipl) {
 							if ($jum_data_ipl > 0) {
-
 								if ($all_priod == $data_ipl['priod'] && $data_ipl['no_payment'] == $no_paymnet) {
 									$data = "Data Sudah Ada!";
 								} else {
@@ -505,7 +502,6 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 								}
 							}
 						}
-
 						if ($data == "Data Sudah Ada!") {
 							$result_data = "<script>Swal.fire('', '$data', 'error');</script>";
 							die($result_data);
