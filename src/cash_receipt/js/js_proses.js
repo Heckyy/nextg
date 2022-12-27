@@ -1,4 +1,7 @@
 $(document).ready(function () {
+  $("#tipe_ipl").select2({
+    theme: "bootstrap-5",
+  });
   $("#new").submit(function () {
     document.getElementById("btn").disabled = true;
 
@@ -103,6 +106,8 @@ $(document).ready(function () {
     document.getElementById("btn").disabled = true;
     var tanggal_bank = document.getElementById("tanggal_bank").value;
     var tanggal = document.getElementById("tanggal").value;
+    var tipe_ipl = document.getElementById("tipe_ipl").value;
+    // alert(tipe_ipl);
 
     $("#data_view").html(
       '<div style="width:100%; float:left;" align="center"><img src="' +
@@ -117,6 +122,7 @@ $(document).ready(function () {
       let formData = new FormData();
       formData.append("file_excel", file_excel);
       formData.append("tanggal_bank", tanggal_bank);
+      formData.append("tipe_ipl", tipe_ipl);
       formData.append("tanggal", tanggal);
       formData.append("proses", proses);
 
@@ -134,11 +140,11 @@ $(document).ready(function () {
           document.getElementById("btn").disabled = false;
           $("#data_view").html(data);
         },
-        error: function () {
-          document.getElementById("btn").disabled = false;
-          Swal.fire("", "File Gagal di Proses", "error");
-          batal_upload();
-        },
+        // error: function () {
+        //   document.getElementById("btn").disabled = false;
+        //   Swal.fire("", "File Gagal di Proses", "error");
+        //   batal_upload();
+        // },
       });
     }
     return false;

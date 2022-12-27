@@ -2,6 +2,9 @@ $(document).ready(function () {
   $("#dues_type").select2({
     theme: "bootstrap-5",
   });
+  $("#divisi").select2({
+    theme: "bootstrap-5",
+  });
 
   function view_data() {
     var totalPage = parseInt($("#totalPages").val());

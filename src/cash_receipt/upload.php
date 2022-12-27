@@ -32,7 +32,7 @@ class view_upload
 			<div class="app-card-body pb-3 main-content container-fluid">
 				<form method="POST" id="upload" enctype="multipart/form-data">
 					<div class="space_line row">
-						<div class="col-sm-6 col-lg-6">
+						<div class="col-sm-4 col-lg-4">
 							<table class="table">
 								<tr class="bg-white">
 									<td colspan="2">Unggah (Excel . xlsx , CSV)</td>
@@ -52,12 +52,24 @@ class view_upload
 									<td></td>
 								</tr>
 								<tr class="bg-white">
+									<td class="d-block">
+										<h6>Tipe IPL:</h6>
+										<select id="tipe_ipl" name="tipe_ipl" class="form-control square" required="required" onchange="change()">
+											<option value="null">Select</option>
+											<option value="bulanan">Bulanan</option>
+											<option value="tahunan">Tahunan</option>
+
+										</select>
+									</td>
+									<td></td>
+								</tr>
+								<tr class="bg-white">
 									<td>
 										<h6>Masukan File : </h6>
 										<input type="file" name="file_excel" id="file_excel" class="form-control square bg-white" required="required">
 									</td>
-									<td>
-										<button type="submit" id="btn" class="btn btn-success">
+									<td class="">
+										<button type="submit" id="btn" class="btn btn-success mt-4">
 											Unggah
 										</button>
 									</td>

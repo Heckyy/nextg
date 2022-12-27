@@ -254,141 +254,276 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 
 		echo str_replace("=", "", base64_encode($_SESSION['number_receipt']));
 	} else if ($proses == 'upload' && $_SESSION['cash_receipt_new'] == 1) {
+
 		$tanggal = $_POST['tanggal'];
 		$tanggal_bank = $_POST['tanggal_bank'];
 		$explode_tanggal = explode('-', $tanggal);
 		$bulan = $explode_tanggal[1];
-		// echo $bulan;
-		$tarik = $db->select('tb_ipl_upload', 'number_urut', 'number_urut', 'DESC');
+		$tipe_ipl = $_POST['tipe_ipl'];
+		if ($tipe_ipl == "bulanan") {
+			// In this below is code for IPL BULANAN
+			$tarik = $db->select('tb_ipl_upload', 'number_urut', 'number_urut', 'DESC');
 
-		if (mysqli_num_rows($tarik) > 0) {
-			$t = mysqli_fetch_assoc($tarik);
-			$urut = $t['number_urut'] + 1;
-		} else {
-			$urut = 1;
-		}
+			if (mysqli_num_rows($tarik) > 0) {
+				$t = mysqli_fetch_assoc($tarik);
+				$urut = $t['number_urut'] + 1;
+			} else {
+				$urut = 1;
+			}
 
-		$_SESSION['urut'] = $urut;
+			$_SESSION['urut'] = $urut;
 
-		$arr_file = explode('.', $_FILES['file_excel']['name']);
-		$extension = end($arr_file);
+			$arr_file = explode('.', $_FILES['file_excel']['name']);
+			$extension = end($arr_file);
 
-		if ('csv' == $extension) {
-			$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
-		} else {
-			$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-		}
+			if ('csv' == $extension) {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+			} else {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+			}
 
-		$spreadsheet = $reader->load($_FILES['file_excel']['tmp_name']);
-		$sheetData = $spreadsheet->getActiveSheet()->toArray();
-		$total_kolom = count($sheetData['0']);
-		if ($total_kolom < 24) {
-			echo "<div class='alert alert-danger' role='alert'>
- 				 <b>Template Excel/CSV Berbeda!</b>
+			$spreadsheet = $reader->load($_FILES['file_excel']['tmp_name']);
+			$sheetData = $spreadsheet->getActiveSheet()->toArray();
+			$total_kolom = count($sheetData['0']);
+			if ($total_kolom < 24) {
+				echo "<div class='alert alert-danger' role='alert'>
+				 <b>Template Excel/CSV Berbeda!</b>
 				</div>";
-			die();
-		} else {
-			$no = 1;
-			$html = '<div class="col-lg-12" id="process" align="right"><button class="btn btn-sm btn-success" id="process_upload" onclick="process_upload()">Proses</button> <button class="btn btn-sm btn-danger" id="cancel_upload" onclick="cancel_upload()">Batalkan</button></div><div class="scroll"><table class="table"><tr class="sticky-top"><td width="50px" align="center">No</td><td width="300px">Number Bast</td><td width="300px">Property,ID</td><td width="300px">Period Month</td><td width="300px">Year Period</td><td width="300px">Floor ID</td><td width="300px">Cluster</td><td width="300px">Store ID</td><td width="300px">Invoice No.</td><td width="300px">Customer</td><td width="300px">Total</td><td>IPL Price</td><td width="300px">Status</td><td width="300px">Paid Date</td><td width="300px">No. Payment</td><td width="300px">Total Unit</td><td width="300px">LT</td><td width="300px">Tarif IPL Makro</td><td width="300px">Total IPL Makro</td><td width="300px">IPL Pengelola</td></tr>';
+				die();
+			} else {
+				$no = 1;
+				$html = '<div class="col-lg-12" id="process" align="right"><button class="btn btn-sm btn-success" id="process_upload" onclick="process_upload()">Proses</button> <button class="btn btn-sm btn-danger" id="cancel_upload" onclick="cancel_upload()">Batalkan</button></div><div class="scroll"><table class="table"><tr class="sticky-top"><td width="50px" align="center">No</td><td width="300px">Number Bast</td><td width="300px">Property,ID</td><td width="300px">Period Month</td><td width="300px">Year Period</td><td width="300px">Floor ID</td><td width="300px">Cluster</td><td width="300px">Store ID</td><td width="300px">Invoice No.</td><td width="300px">Customer</td><td width="300px">Total</td><td>IPL Price</td><td width="300px">Status</td><td width="300px">Paid Date</td><td width="300px">No. Payment</td><td width="300px">Total Unit</td><td width="300px">LT</td><td width="300px">Tarif IPL Makro</td><td width="300px">Total IPL Makro</td><td width="300px">IPL Pengelola</td></tr>';
 
-			$total_semua = 0;
+				$total_semua = 0;
 
 
-			for ($i = 1; $i < count($sheetData); $i++) {
-				$number_bast     	= $sheetData[$i]['0'];
-				$property    		= $sheetData[$i]['1'];
-				$priod_mont    		= $sheetData[$i]['2'];
-				$year_priod    		= $sheetData[$i]['3'];
-				$floor_id    		= $sheetData[$i]['4'];
-				$cluster    		= $sheetData[$i]['5'];
-				$store_id    		= $sheetData[$i]['6'];
-				$invoice_no    		= $sheetData[$i]['7'];
-				$customer_name    	= $sheetData[$i]['8'];
-				$total    			= str_replace(",", "", $sheetData[$i]['9']);
-				$status    			= $sheetData[$i]['10'];
-				$paid_date_asli		= str_replace("/", "-", $sheetData[$i]['11']);
-				$no_paymnet    		= $sheetData[$i]['12'];
-				$total_unit    		= $sheetData[$i]['13'];
-				$luas_tanah    		= str_replace(",", "", $sheetData[$i]['14']);
-				$tarif_ipl_makro    = str_replace(",", "", $sheetData[$i]['15']);
-				$total_ipl_makro    = str_replace(",", "", $sheetData[$i]['16']);
-				$ipl_pengelolah    	= str_replace(",", "", $sheetData[$i]['17']);
-				$tanggal_bank = substr($paid_date_asli, 0, 2);
-				$bulan_bank = substr($paid_date_asli, 3, 2);
-				$tahun_bank = substr($paid_date_asli, 6, 4);
-				$paid_date = $tahun_bank . '-' . $bulan_bank . '-' . $tanggal_bank;
+				for ($i = 1; $i < count($sheetData); $i++) {
+					$number_bast     	= $sheetData[$i]['0'];
+					$property    		= $sheetData[$i]['1'];
+					$priod_mont    		= $sheetData[$i]['2'];
+					$year_priod    		= $sheetData[$i]['3'];
+					$floor_id    		= $sheetData[$i]['4'];
+					$cluster    		= $sheetData[$i]['5'];
+					$store_id    		= $sheetData[$i]['6'];
+					$invoice_no    		= $sheetData[$i]['7'];
+					$customer_name    	= $sheetData[$i]['8'];
+					$total    			= str_replace(",", "", $sheetData[$i]['9']);
+					$status    			= $sheetData[$i]['10'];
+					$paid_date_asli		= str_replace("/", "-", $sheetData[$i]['11']);
+					$no_paymnet    		= $sheetData[$i]['12'];
+					$total_unit    		= $sheetData[$i]['13'];
+					$luas_tanah    		= str_replace(",", "", $sheetData[$i]['14']);
+					$tarif_ipl_makro    = str_replace(",", "", $sheetData[$i]['15']);
+					$total_ipl_makro    = str_replace(",", "", $sheetData[$i]['16']);
+					$ipl_pengelolah    	= str_replace(",", "", $sheetData[$i]['17']);
+					$tanggal_bank = substr($paid_date_asli, 0, 2);
+					$bulan_bank = substr($paid_date_asli, 3, 2);
+					$tahun_bank = substr($paid_date_asli, 6, 4);
+					$paid_date = $tahun_bank . '-' . $bulan_bank . '-' . $tanggal_bank;
 
-				if ($priod_mont < 10) {
-					$all_priod = $year_priod . '-0' . $priod_mont;
-				} else {
-					$all_priod = $year_priod . '-' . $priod_mont;
-				}
-				if ($property == 'RMH') {
-					$property = "1";
-				} else {
-					$property = "2";
-				}
-				if (!empty($number_bast)) {
-					$ubah_tarif_ipl_makro	= $sheetData[$i]['15'];
-					$ubah_total_ipl_makro	= $sheetData[$i]['16'];
-					$ubah_ipl_pengelolah	= $sheetData[$i]['17'];
-					$cek_population = $db->select('tb_population', 'code_population="' . $number_bast . '"', 'id_population', 'DESC');
-					$result_cek_population = mysqli_fetch_assoc($cek_population);
-					$building_area = $result_cek_population['building_area'];
-					$type_property = $result_cek_population['type_property'];
-					$surface_area = $result_cek_population['surface_area'];
-					$c = mysqli_fetch_assoc($db->select('tb_cluster', 'id_cluster="' . $result_cek_population['id_cluster'] . '"', 'id_cluster', 'DESC'));
-					if ($type_property == 1) {
-						$the_land_price = $c['the_land_price'] * $surface_area;
-						$building_price = $c['building_price'] * $building_area;
-						$macro_price = $c['macro_price'] * $surface_area;
-						$grand_total_ipl = $the_land_price + $building_price - $macro_price;
+					if ($priod_mont < 10) {
+						$all_priod = $year_priod . '-0' . $priod_mont;
 					} else {
-						$the_land_price = $c['the_land_price'] * $surface_area;
-						$macro_price = $c['macro_price'] * $surface_area;
-						$grand_total_ipl = $the_land_price - $macro_price;
+						$all_priod = $year_priod . '-' . $priod_mont;
 					}
-					if (mysqli_num_rows($cek_population) == 0) {
-						$potong = substr($number_bast, -4);
-						$ubah_nomor = str_replace("/", "", $potong);
-						$db->insert('tb_population', 'code_population="' . $number_bast . '",name="' . $customer_name . '",house_number="' . $ubah_nomor . '",type_property="' . $property . '",cluster="' . $cluster . '",surface_area="' . $luas_tanah . '",cek="1"');
+					if ($property == 'RMH') {
+						$property = "1";
+					} else {
+						$property = "2";
 					}
-					$invoice_no_db = "";
+					if (!empty($number_bast)) {
+						$ubah_tarif_ipl_makro	= $sheetData[$i]['15'];
+						$ubah_total_ipl_makro	= $sheetData[$i]['16'];
+						$ubah_ipl_pengelolah	= $sheetData[$i]['17'];
+						$cek_population = $db->select('tb_population', 'code_population="' . $number_bast . '"', 'id_population', 'DESC');
+						$result_cek_population = mysqli_fetch_assoc($cek_population);
+						$building_area = $result_cek_population['building_area'];
+						$type_property = $result_cek_population['type_property'];
+						$surface_area = $result_cek_population['surface_area'];
+						$c = mysqli_fetch_assoc($db->select('tb_cluster', 'id_cluster="' . $result_cek_population['id_cluster'] . '"', 'id_cluster', 'DESC'));
+						if ($type_property == 1) {
+							$the_land_price = $c['the_land_price'] * $surface_area;
+							$building_price = $c['building_price'] * $building_area;
+							$macro_price = $c['macro_price'] * $surface_area;
+							$grand_total_ipl = $the_land_price + $building_price - $macro_price;
+						} else {
+							$the_land_price = $c['the_land_price'] * $surface_area;
+							$macro_price = $c['macro_price'] * $surface_area;
+							$grand_total_ipl = $the_land_price - $macro_price;
+						}
+						if (mysqli_num_rows($cek_population) == 0) {
+							$potong = substr($number_bast, -4);
+							$ubah_nomor = str_replace("/", "", $potong);
+							$db->insert('tb_population', 'code_population="' . $number_bast . '",name="' . $customer_name . '",house_number="' . $ubah_nomor . '",type_property="' . $property . '",cluster="' . $cluster . '",surface_area="' . $luas_tanah . '",cek="1"');
+						}
+						$invoice_no_db = "";
 
-					$query_cek_ipl = "SELECT * from tb_cash_receipt_payment_detail";
-					$tarik_data_ipl = $db->selectAll($query_cek_ipl);
-					$result_tarik_data_ipl = mysqli_fetch_assoc($tarik_data_ipl);
-					$jum_data_ipl = mysqli_num_rows($tarik_data_ipl);
-					$all_priod_fix = '';
-					$data = "";
-					foreach ($tarik_data_ipl as $data_ipl) {
-						if ($jum_data_ipl > 0) {
+						$query_cek_ipl = "SELECT * from tb_cash_receipt_payment_detail";
+						$tarik_data_ipl = $db->selectAll($query_cek_ipl);
+						$result_tarik_data_ipl = mysqli_fetch_assoc($tarik_data_ipl);
+						$jum_data_ipl = mysqli_num_rows($tarik_data_ipl);
+						$all_priod_fix = '';
+						$data = "";
+						foreach ($tarik_data_ipl as $data_ipl) {
+							if ($jum_data_ipl > 0) {
 
-							if ($all_priod == $data_ipl['priod'] && $data_ipl['no_payment'] == $no_paymnet) {
-								$data = "Data Sudah Ada!";
-							} else {
-								$data = "Data Belum Ada!";
+								if ($all_priod == $data_ipl['priod'] && $data_ipl['no_payment'] == $no_paymnet) {
+									$data = "Data Sudah Ada!";
+								} else {
+									$data = "Data Belum Ada!";
+								}
 							}
 						}
-					}
 
-					if ($data == "Data Sudah Ada!") {
-						$result_data = "<script>Swal.fire('', '$data', 'error');</script>";
-						die($result_data);
-					} else {
-						$db->insert('tb_ipl_upload', 'number_urut="' . $urut . '",number_bast="' . $number_bast . '",property="' . $property . '",priod_mont="' . $priod_mont . '",year_priod="' . $year_priod . '",floor_id="' . $floor_id . '",cluster="' . $cluster . '",store_id="' . $store_id . '",invoice_no="' . $invoice_no . '",customer_name="' . $customer_name . '",total="' . $total . '",status="' . $status . '",paid_date="' . $paid_date . '",no_paymnet="' . $no_paymnet . '",total_unit="' . $total_unit . '",luas_tanah="' . $luas_tanah . '",tarif_ipl_makro="' . $tarif_ipl_makro . '",total_ipl_makro="' . $total_ipl_makro . '",ipl_pengelolah="' . $ipl_pengelolah . '"');
-						$html = $html . '<tr><td align="center">' . $no . '.</td><td>' . $number_bast . '</td><td>' . $property . '</td><td>' . $priod_mont . '</td><td>' . $year_priod . '</td><td>' . $floor_id . '</td><td>' . $cluster . '</td><td>' . $store_id . '</td><td>' . $invoice_no . '</td><td>' . $customer_name . '</td><td>' . $total . '</td><td>' . $grand_total_ipl . '</td><td>' . $status . '</td><td>' . $paid_date_asli . '</td><td>' . $no_paymnet . '</td><td>' . $total_unit . '</td><td>' . $luas_tanah . '</td><td>' . $ubah_tarif_ipl_makro . '</td><td>' . $ubah_total_ipl_makro . '</td><td>' . $ubah_ipl_pengelolah . '</td></tr>';
-						$no++;
-						$result_data = "<script>Swal.fire('', '$no_paymnet', 'success');</script>";
+						if ($data == "Data Sudah Ada!") {
+							$result_data = "<script>Swal.fire('', '$data', 'error');</script>";
+							die($result_data);
+						} else {
+							$db->insert('tb_ipl_upload', 'number_urut="' . $urut . '",number_bast="' . $number_bast . '",property="' . $property . '",priod_mont="' . $priod_mont . '",year_priod="' . $year_priod . '",floor_id="' . $floor_id . '",cluster="' . $cluster . '",store_id="' . $store_id . '",invoice_no="' . $invoice_no . '",customer_name="' . $customer_name . '",total="' . $total . '",status="' . $status . '",paid_date="' . $paid_date . '",no_paymnet="' . $no_paymnet . '",total_unit="' . $total_unit . '",luas_tanah="' . $luas_tanah . '",tarif_ipl_makro="' . $tarif_ipl_makro . '",total_ipl_makro="' . $total_ipl_makro . '",ipl_pengelolah="' . $ipl_pengelolah . '"');
+							$html = $html . '<tr><td align="center">' . $no . '.</td><td>' . $number_bast . '</td><td>' . $property . '</td><td>' . $priod_mont . '</td><td>' . $year_priod . '</td><td>' . $floor_id . '</td><td>' . $cluster . '</td><td>' . $store_id . '</td><td>' . $invoice_no . '</td><td>' . $customer_name . '</td><td>' . $total . '</td><td>' . $grand_total_ipl . '</td><td>' . $status . '</td><td>' . $paid_date_asli . '</td><td>' . $no_paymnet . '</td><td>' . $total_unit . '</td><td>' . $luas_tanah . '</td><td>' . $ubah_tarif_ipl_makro . '</td><td>' . $ubah_total_ipl_makro . '</td><td>' . $ubah_ipl_pengelolah . '</td></tr>';
+							$no++;
+							$result_data = "<script>Swal.fire('', '$no_paymnet', 'success');</script>";
+						}
 					}
 				}
+				$tarik_detail = $db->select('tb_ipl_upload', 'number_urut="' . $urut . '"', 'id_ipl_upload', 'ASC');
+				foreach ($tarik_detail as $key => $td) {
+					$total_semua = $total_semua + $td['ipl_pengelolah'];
+				}
+				$html = $html . '<tr><td align="center"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td colspan="5"><h3><b>Total IPL Pengelola :</b></h3></td><td colspan="2"><h3><b>' . number_format($total_semua, 2, ',', '.') . '</b></h3></td></tr</table></div>';
+				echo $html;
 			}
-			$tarik_detail = $db->select('tb_ipl_upload', 'number_urut="' . $urut . '"', 'id_ipl_upload', 'ASC');
-			foreach ($tarik_detail as $key => $td) {
-				$total_semua = $total_semua + $td['ipl_pengelolah'];
+		} else {
+			// In This Below is Code for IPL TAHUNAN
+			$tarik = $db->select('tb_ipl_upload', 'number_urut', 'number_urut', 'DESC');
+
+			if (mysqli_num_rows($tarik) > 0) {
+				$t = mysqli_fetch_assoc($tarik);
+				$urut = $t['number_urut'] + 1;
+			} else {
+				$urut = 1;
 			}
-			$html = $html . '<tr><td align="center"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td colspan="5"><h3><b>Total IPL Pengelola :</b></h3></td><td colspan="2"><h3><b>' . number_format($total_semua, 2, ',', '.') . '</b></h3></td></tr</table></div>';
-			echo $html;
+			$arr_file = explode('.', $_FILES['file_excel']['name']);
+			$extension = end($arr_file);
+
+			if ('csv' == $extension) {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+			} else {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+			}
+
+			$spreadsheet = $reader->load($_FILES['file_excel']['tmp_name']);
+			$sheetData = $spreadsheet->getActiveSheet()->toArray();
+			$total_kolom = count($sheetData['0']);
+
+			if ($total_kolom < 24) {
+				echo "<div class='alert alert-danger' role='alert'>
+				 <b>Template Excel/CSV Berbeda!</b>
+				</div>";
+				die();
+			} else {
+				$no = 1;
+				$html = '<div class="col-lg-12" id="process" align="right"><button class="btn btn-sm btn-success" id="process_upload" onclick="process_upload()">Proses</button> <button class="btn btn-sm btn-danger" id="cancel_upload" onclick="cancel_upload()">Batalkan</button></div><div class="scroll"><table class="table"><tr class="sticky-top"><td width="50px" align="center">No</td><td width="300px">Number Bast</td><td width="300px">Property,ID</td><td width="300px">Period Month</td><td width="300px">Year Period</td><td width="300px">Floor ID</td><td width="300px">Cluster</td><td width="300px">Store ID</td><td width="300px">Invoice No.</td><td width="300px">Customer</td><td width="300px">Total</td><td>IPL Price</td><td width="300px">Status</td><td width="300px">Paid Date</td><td width="300px">No. Payment</td><td width="300px">Total Unit</td><td width="300px">LT</td><td width="300px">Tarif IPL Makro</td><td width="300px">Total IPL Makro</td><td width="300px">IPL Pengelola</td></tr>';
+
+				$total_semua = 0;
+
+
+				for ($i = 1; $i < count($sheetData); $i++) {
+					$number_bast     	= $sheetData[$i]['0'];
+					$property    		= $sheetData[$i]['1'];
+					$priod_mont    		= $sheetData[$i]['2'];
+					$year_priod    		= $sheetData[$i]['3'];
+					$floor_id    		= $sheetData[$i]['4'];
+					$cluster    		= $sheetData[$i]['5'];
+					$store_id    		= $sheetData[$i]['6'];
+					$invoice_no    		= $sheetData[$i]['7'];
+					$customer_name    	= $sheetData[$i]['8'];
+					$total    			= str_replace(",", "", $sheetData[$i]['9']);
+					$status    			= $sheetData[$i]['10'];
+					$paid_date_asli		= str_replace("/", "-", $sheetData[$i]['11']);
+					$no_paymnet    		= $sheetData[$i]['12'];
+					$total_unit    		= $sheetData[$i]['13'];
+					$luas_tanah    		= str_replace(",", "", $sheetData[$i]['14']);
+					$tarif_ipl_makro    = str_replace(",", "", $sheetData[$i]['15']);
+					$total_ipl_makro    = str_replace(",", "", $sheetData[$i]['16']);
+					$ipl_pengelolah    	= str_replace(",", "", $sheetData[$i]['17']);
+					$tanggal_bank = substr($paid_date_asli, 0, 2);
+					$bulan_bank = substr($paid_date_asli, 3, 2);
+					$tahun_bank = substr($paid_date_asli, 6, 4);
+					$paid_date = $tahun_bank . '-' . $bulan_bank . '-' . $tanggal_bank;
+
+					if ($priod_mont < 10) {
+						$all_priod = $year_priod . '-0' . $priod_mont;
+					} else {
+						$all_priod = $year_priod . '-' . $priod_mont;
+					}
+					if ($property == 'RMH') {
+						$property = "1";
+					} else {
+						$property = "2";
+					}
+					if (!empty($number_bast)) {
+						$ubah_tarif_ipl_makro	= $sheetData[$i]['15'];
+						$ubah_total_ipl_makro	= $sheetData[$i]['16'];
+						$ubah_ipl_pengelolah	= $sheetData[$i]['17'];
+						$cek_population = $db->select('tb_population', 'code_population="' . $number_bast . '"', 'id_population', 'DESC');
+						$result_cek_population = mysqli_fetch_assoc($cek_population);
+						$building_area = $result_cek_population['building_area'];
+						$type_property = $result_cek_population['type_property'];
+						$surface_area = $result_cek_population['surface_area'];
+						$c = mysqli_fetch_assoc($db->select('tb_cluster', 'id_cluster="' . $result_cek_population['id_cluster'] . '"', 'id_cluster', 'DESC'));
+						if ($type_property == 1) {
+							$the_land_price = $c['the_land_price'] * $surface_area;
+							$building_price = $c['building_price'] * $building_area;
+							$macro_price = $c['macro_price'] * $surface_area;
+							$grand_total_ipl = $the_land_price + $building_price - $macro_price;
+						} else {
+							$the_land_price = $c['the_land_price'] * $surface_area;
+							$macro_price = $c['macro_price'] * $surface_area;
+							$grand_total_ipl = $the_land_price - $macro_price;
+						}
+						if (mysqli_num_rows($cek_population) == 0) {
+							$potong = substr($number_bast, -4);
+							$ubah_nomor = str_replace("/", "", $potong);
+							$db->insert('tb_population', 'code_population="' . $number_bast . '",name="' . $customer_name . '",house_number="' . $ubah_nomor . '",type_property="' . $property . '",cluster="' . $cluster . '",surface_area="' . $luas_tanah . '",cek="1"');
+						}
+						$invoice_no_db = "";
+
+						$query_cek_ipl = "SELECT * from tb_cash_receipt_payment_detail";
+						$tarik_data_ipl = $db->selectAll($query_cek_ipl);
+						$result_tarik_data_ipl = mysqli_fetch_assoc($tarik_data_ipl);
+						$jum_data_ipl = mysqli_num_rows($tarik_data_ipl);
+						$all_priod_fix = '';
+						$data = "";
+						foreach ($tarik_data_ipl as $data_ipl) {
+							if ($jum_data_ipl > 0) {
+
+								if ($all_priod == $data_ipl['priod'] && $data_ipl['no_payment'] == $no_paymnet) {
+									$data = "Data Sudah Ada!";
+								} else {
+									$data = "Data Belum Ada!";
+								}
+							}
+						}
+
+						if ($data == "Data Sudah Ada!") {
+							$result_data = "<script>Swal.fire('', '$data', 'error');</script>";
+							die($result_data);
+						} else {
+							$db->insert('tb_ipl_upload', 'number_urut="' . $urut . '",number_bast="' . $number_bast . '",property="' . $property . '",priod_mont="' . $priod_mont . '",year_priod="' . $year_priod . '",floor_id="' . $floor_id . '",cluster="' . $cluster . '",store_id="' . $store_id . '",invoice_no="' . $invoice_no . '",customer_name="' . $customer_name . '",total="' . $total . '",status="' . $status . '",paid_date="' . $paid_date . '",no_paymnet="' . $no_paymnet . '",total_unit="' . $total_unit . '",luas_tanah="' . $luas_tanah . '",tarif_ipl_makro="' . $tarif_ipl_makro . '",total_ipl_makro="' . $total_ipl_makro . '",ipl_pengelolah="' . $ipl_pengelolah . '"');
+							$html = $html . '<tr><td align="center">' . $no . '.</td><td>' . $number_bast . '</td><td>' . $property . '</td><td>' . $priod_mont . '</td><td>' . $year_priod . '</td><td>' . $floor_id . '</td><td>' . $cluster . '</td><td>' . $store_id . '</td><td>' . $invoice_no . '</td><td>' . $customer_name . '</td><td>' . $total . '</td><td>' . $grand_total_ipl . '</td><td>' . $status . '</td><td>' . $paid_date_asli . '</td><td>' . $no_paymnet . '</td><td>' . $total_unit . '</td><td>' . $luas_tanah . '</td><td>' . $ubah_tarif_ipl_makro . '</td><td>' . $ubah_total_ipl_makro . '</td><td>' . $ubah_ipl_pengelolah . '</td></tr>';
+							$no++;
+							$result_data = "<script>Swal.fire('', '$no_paymnet', 'success');</script>";
+						}
+					}
+				}
+				$tarik_detail = $db->select('tb_ipl_upload', 'number_urut="' . $urut . '"', 'id_ipl_upload', 'ASC');
+				foreach ($tarik_detail as $key => $td) {
+					$total_semua = $total_semua + $td['ipl_pengelolah'];
+				}
+				$html = $html . '<tr><td align="center"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td colspan="5"><h3><b>Total IPL Pengelola :</b></h3></td><td colspan="2"><h3><b>' . number_format($total_semua, 2, ',', '.') . '</b></h3></td></tr</table></div>';
+				echo $html;
+			}
 		}
 	} else if ($proses == 'cancel_upload' && $_SESSION['cash_receipt_new'] == 1) {
 		$db->hapus('tb_ipl_upload', 'number_urut="' . $_SESSION['urut'] . '"');
