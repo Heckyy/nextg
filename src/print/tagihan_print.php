@@ -11,7 +11,6 @@
     $bulan = $explode_params[1];
     $tahun = $explode_params[2];
     $cari = $explode_params[3];
-
     $priod = $tahun . "-" . $bulan;
     $settings = $db->select('tb_settings', 'id_settings', 'id_settings', 'DESC');
     $s = mysqli_fetch_assoc($settings);
@@ -36,7 +35,6 @@
         $query_get_data = "SELECT * from tb_invoice_fix where status='" . $tipe_bayar . "' && tanggal_tgh like'%" . $priod . "%' && pemilik like'%" . $cari . "%' || nomor_tgh like'%" . $cari . "%'";
       }
     }
-
     // In This Below Is Query To Get Data From DataBase
     $result_get_data = $db->selectAll($query_get_data);
     $final_result_get_data = mysqli_fetch_assoc($result_get_data);
@@ -45,7 +43,17 @@
     $no = 1;
     $tampung = "";
     foreach ($result_get_data as $data) {
-      //$tampung .= $data['pemilik'];
+      $bast = $data['nomor_bast'];
+      // QUERY TO GET DATA ID CLUSTER
+      $query_id_cluster = "SELECT * from tb_population where code_population='" . $bast . "'";
+      $get_data_id_cluster = $db->selectAll($query_id_cluster);
+      $result_get_data_id_cluster = mysqli_fetch_assoc($get_data_id_cluster);
+      $id_cluster = $result_get_data_id_cluster['id_cluster'];
+      // Query to get cluster
+      $query_cluster_name = "SELECT * from tb_cluster where id_cluster='" . $id_cluster . "'";
+      $get_cluster_name = $db->selectAll($query_cluster_name);
+      $result_get_cluster_name = mysqli_fetch_assoc($get_cluster_name);
+      $cluster_name = $result_get_cluster_name['cluster'];
       $nominal_bayar = intval($data['nominal_bayar']);
       $sisa = intval($data['sisa']);
       $tampung .= '<tr>';
@@ -56,15 +64,15 @@
       $tampung .= '<td align="center"> ' . "Rp. " . number_format($data['nominal_tagihan'], 0, ".", ",") . ' </td>';
       $tampung .= '<td align="center"> ' . "Rp. " . number_format($nominal_bayar, 0, ',', ',') . ' </td>';
       $tampung .= '<td align="center"> ' . "Rp. " . number_format($sisa, 0, ".", ",") . ' </td>';
-      $tampung .= '<td align="center"> ' . $data['catatan'] . ' </td>';
-      $tampung .= '<td align="center"> ' . $data['status'] . ' </td>';
+      $tampung .= '<td align="center"> ' . $cluster_name . " / " .  $result_get_data_id_cluster['house_number'] . ' </td>';
+      $tampung .= '<td align="center"> ' . strtoupper($data['status']) . ' </td>';
       $tampung .= '</tr>';
       $no++;
     };
     $html = ' <style>
                   @page {
-                  margin: 0px 0px 0px 0px !important;
-                  padding: 0px 0px 0px 0px !important;
+                  margin: 20px 20px 20px 20px !important;
+                  padding: 10px 10px 10px 10px !important;
         }
                   @font-face {
                       font-family: "time new roman";           
@@ -116,7 +124,6 @@
                   <div style="margin-left:10px;"><b>Periode :' . $date . ' </b></div>
                   <div style="margin-left:10px;"><b>Status :' . strtoupper($tipe_bayar) . ' </b></div>
                   </div>
-
                   <table class = "table">
                   <tr>
                   <th>No</th>
@@ -126,23 +133,22 @@
                   <th>Tagihan</th>
                   <th>Bayar</th>
                   <th>Sisa</th>
-                  <th>Catatan</th>
+                  <th>Alamat</th>
                   <th>Status</th>
                   </tr>
-          
 
                   ';
     $html .= $tampung;
     $html .= '</body></html>';
   }
   require_once("../../assets/vendors/dompdf/autoload.inc.php");
-  $filename = "newpdffile";
+  $filename = "Report-Tagihan";
 
   use Dompdf\Dompdf;
 
   $dompdf = new Dompdf();
   $dompdf->loadHtml($html);
   $customPaper = array(0, 0, 470.95, 595.28);
-  $dompdf->set_paper($customPaper, 'portrait');
+  $dompdf->set_paper("A4", 'landscape');
   $dompdf->render();
   $dompdf->stream($filename);

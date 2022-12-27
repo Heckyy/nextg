@@ -23,56 +23,56 @@ $(document).ready(function () {
   });
 
   $("#new").submit(function () {
-    // Swal.fire({
-    //   icon: "question",
-    //   text: "Apakah Anda Yakin???",
-    //   showDenyButton: true,
-    //   confirmButtonText: "Yes",
-    // }).then((result) => {
-    //   document.getElementById("btn").disabled = true;
-    //   var invoice = document.getElementById("invoice").value;
-    //   var type_of_receipt = document.getElementById("type_of_receipt").value;
-    //   var tanggal_bank = document.getElementById("tanggal_bank").value;
-    //   var account_name = document.getElementById("account_name").value;
-    //   var account_number = document.getElementById("account_number").value;
-    //   var amount = document.getElementById("amount").value;
-    //   var note = document.getElementById("note").value;
-    //   //alert(tanggal_bank);
-    //   var data = "";
-    //   account_name = account_name.replace("&", "and_symbol");
-    //   account_number = account_number.replace("&", "and_symbol");
-    //   note = note.replace("&", "and_symbol");
-    //   data += "&invoice=" + invoice;
-    //   data += "&type_of_receipt=" + type_of_receipt;
-    //   data += "&tanggal_bank=" + tanggal_bank;
-    //   data += "&account_name=" + account_name;
-    //   data += "&account_number=" + account_number;
-    //   data += "&amount=" + amount;
-    //   data += "&note=" + note;
-    //   data += "&proses=new";
-    //   console.log(data);
-    //   $.ajax({
-    //     url:
-    //       localStorage.getItem("data_link") +
-    //       "/src/cash_receipt/proses/proses_warga.php",
-    //     method: "POST",
-    //     data: data,
-    //     type: "json",
-    //     cache: false,
-    //     success: function (data) {
-    //       if (data == 1) {
-    //         document.getElementById("btn").disabled = false;
-    //         Swal.fire("", "Maaf, Data tidak dapat di simpan!!!", "error");
-    //       } else {
-    //         document.location.href =
-    //           localStorage.getItem("data_link") +
-    //           "/cash-receipt/view-invoice/" +
-    //           data;
-    //       }
-    //     },
-    //   });
-    // });
-    // return false;
+    Swal.fire({
+      icon: "question",
+      text: "Apakah Anda Yakin???",
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      document.getElementById("btn").disabled = true;
+      var invoice = document.getElementById("invoice").value;
+      var type_of_receipt = document.getElementById("type_of_receipt").value;
+      var tanggal_bank = document.getElementById("tanggal_bank").value;
+      var account_name = document.getElementById("account_name").value;
+      var account_number = document.getElementById("account_number").value;
+      var amount = document.getElementById("amount").value;
+      var note = document.getElementById("note").value;
+      //   //alert(tanggal_bank);
+      var data = "";
+      account_name = account_name.replace("&", "and_symbol");
+      account_number = account_number.replace("&", "and_symbol");
+      note = note.replace("&", "and_symbol");
+      data += "&invoice=" + invoice;
+      data += "&type_of_receipt=" + type_of_receipt;
+      data += "&tanggal_bank=" + tanggal_bank;
+      data += "&account_name=" + account_name;
+      data += "&account_number=" + account_number;
+      data += "&amount=" + amount;
+      data += "&note=" + note;
+      data += "&proses=new";
+      console.log(data);
+      $.ajax({
+        url:
+          localStorage.getItem("data_link") +
+          "/src/cash_receipt/proses/proses_warga.php",
+        method: "POST",
+        data: data,
+        type: "json",
+        cache: false,
+        success: function (data) {
+          if (data == 1) {
+            document.getElementById("btn").disabled = false;
+            Swal.fire("", "Maaf, Data tidak dapat di simpan!!!", "error");
+          } else {
+            document.location.href =
+              localStorage.getItem("data_link") +
+              "/cash-receipt/view-invoice/" +
+              data;
+          }
+        },
+      });
+    });
+    return false;
   });
 });
 
@@ -193,6 +193,8 @@ function print_transaction(e) {
 }
 
 function process_transaction() {
+  var note = document.getElementById("note").value;
+  // alert(note);
   Swal.fire({
     icon: "question",
     text: "Apakah Anda Yakin???",
@@ -202,6 +204,7 @@ function process_transaction() {
     if (result.isConfirmed) {
       var data = "";
       data += "&proses=process";
+      data += "&note=" + note;
       console.log(data);
       $.ajax({
         url:
@@ -212,11 +215,11 @@ function process_transaction() {
         type: "json",
         cache: false,
         success: function (data) {
+          //alert(data);
           document.location.href =
             localStorage.getItem("data_link") + "/cash-receipt/bank/MQ";
         },
       });
-
       return false;
     }
   });

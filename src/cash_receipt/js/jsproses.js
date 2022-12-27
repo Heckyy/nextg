@@ -94,7 +94,7 @@ $(document).ready(function () {
                   '" data-folder="' +
                   trk.target_folder +
                   '">' +
-                  trk.cluster +
+                  trk.note +
                   "</td>";
                 html +=
                   '<td onclick="link_view(this);" data-id="' +

@@ -177,7 +177,7 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 		echo str_replace("=", "", base64_encode($_SESSION['number_receipt']));
 		// echo $nama_pemilik;
 	} else if ($proses == 'process' && $_SESSION['cash_receipt_process'] == 1) {
-
+		$note = htmlspecialchars($_POST['note']);
 		$cek = $db->select('tb_cash_receipt_payment', 'number="' . $_SESSION['number_receipt'] . '" && status="0"', 'id_cash_receipt_payment', 'DESC');
 
 		$c = mysqli_fetch_assoc($cek);
@@ -244,6 +244,8 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 
 			$db->update('tb_cash_receipt_payment', 'status="3",approved="' . $_SESSION['code_employee'] . '"', 'number="' . $_SESSION['number_receipt'] . '"');
 		}
+
+		$db->update("tb_cash_receipt_payment", "note='" . $note . "'", "number='" . $_SESSION['number_receipt'] . "'");
 
 		echo str_replace("=", "", base64_encode($_SESSION['number_receipt']));
 	} else if ($proses == 'diketahui' && $_SESSION['cash_receipt_diketahui'] == 1) {

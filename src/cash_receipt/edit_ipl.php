@@ -1,28 +1,20 @@
 <?php
 class edit_cash_receipt_ipl
 {
-
 	function data_edit($db, $e, $code)
 	{
-
 		$type_of_receipt = $db->select('tb_type_of_receipt', 'id_type_of_receipt', 'type_of_receipt', 'ASC');
-
 		$view = base64_decode($code);
 		$view_cash_receipt = $db->select('tb_cash_receipt_payment', 'number="' . $view . '" && type="i" && status="0"', 'id_cash_receipt_payment', 'DESC');
-
 		if (mysqli_num_rows($view_cash_receipt) > 0 && $_SESSION['cash_receipt_edit'] == 1 && !empty($_SESSION['bank'])) {
 			$v = mysqli_fetch_assoc($view_cash_receipt);
-
 			$view_cash_receipt_detail = $db->select('tb_cash_receipt_payment_detail', 'number="' . $view . '"', 'id_detail', 'DESC');
-
 			$bank = $db->select('tb_bank_cash', 'id_bank_cash="' . $v['id_bank'] . '"', 'bank_cash', 'ASC');
 			$b = mysqli_fetch_assoc($bank);
-
 			$tanggal = substr($v['tanggal'], 8, 2);
 			$bulan = substr($v['tanggal'], 5, 2);
 			$tahun = substr($v['tanggal'], 0, 4);
 			$date = $tanggal . "-" . $bulan . "-" . $tahun;
-
 			if (!empty($v['tanggal_bank'])) {
 				$tanggal_bank = substr($v['tanggal_bank'], 8, 2);
 				$bulan_bank = substr($v['tanggal_bank'], 5, 2);
@@ -35,24 +27,19 @@ class edit_cash_receipt_ipl
 			<script type="text/javascript">
 				$(document).ready(function() {
 					var amount = document.getElementById("amount");
-
 					amount.addEventListener("keyup", function(e) {
 						amount.value = convertRupiah(this.value);
 					});
-
 					amount.addEventListener('keydown', function(event) {
 						return isNumberKey(event);
 					});
-
 					$("#type_of_receipt").select2({
 						theme: "bootstrap-5",
 					});
-
 					$("#tanggal_bank").datepicker({
 						dateFormat: "dd-mm-yy",
 						changeMonth: true
 					});
-
 				});
 			</script>
 			<script src="<?php echo $e; ?>/src/cash_receipt/js/js_proses_population.js"></script>
@@ -70,7 +57,7 @@ class edit_cash_receipt_ipl
 					?>
 						<div class="col-auto">
 							<button class="btn btn-sm btn-info" onclick="process_transaction()">
-								Process
+								Proces
 							</button>
 						</div>
 					<?php
@@ -86,7 +73,6 @@ class edit_cash_receipt_ipl
 					?>
 				</div>
 			</div>
-
 			<div class="app-card-body pb-3 main-content container-fluid">
 				<div class="space_line row">
 					<div class="col-sm-2 col-lg-2">
@@ -112,13 +98,11 @@ class edit_cash_receipt_ipl
 							<?php
 							foreach ($type_of_receipt as $key => $tr) {
 							?>
-
 								<option value="<?php echo $tr['id_type_of_receipt']; ?>" <?php if ($tr['id_type_of_receipt'] == $v['id_type_of_receipt']) {
 																								echo "selected";
 																							} ?>>
 									<?php echo $tr['type_of_receipt']; ?>
 								</option>
-
 							<?php
 							}
 							?>
@@ -192,7 +176,6 @@ class edit_cash_receipt_ipl
 										});
 									});
 								</script>
-
 								<tr>
 									<td align="center"><?php echo $no; ?></td>
 									<td><?php echo $p['name']; ?></td>
