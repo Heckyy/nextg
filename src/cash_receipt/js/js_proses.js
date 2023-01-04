@@ -140,11 +140,11 @@ $(document).ready(function () {
           document.getElementById("btn").disabled = false;
           $("#data_view").html(data);
         },
-        // error: function () {
-        //   document.getElementById("btn").disabled = false;
-        //   Swal.fire("", "File Gagal di Proses", "error");
-        //   batal_upload();
-        // },
+        error: function () {
+          document.getElementById("btn").disabled = false;
+          Swal.fire("", "File Gagal di Proses", "error");
+          batal_upload();
+        },
       });
     }
     return false;

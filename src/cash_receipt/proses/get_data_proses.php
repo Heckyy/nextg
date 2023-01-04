@@ -44,7 +44,7 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 
 
 
-		$data = $db->selectpage('tb_cash_receipt_payment', 'number LIKE "%' . $ubah_pencarian . '%" && tanggal LIKE "%' . $priod . '%" && id_bank="' . $_SESSION['bank'] . '" && type="i" || type_of_receipt  LIKE "%' . $ubah_pencarian . '%" && tanggal LIKE "%' . $priod . '%" && id_bank="' . $_SESSION['bank'] . '" && type="i"', 'id_cash_receipt_payment', 'DESC', $startFrom, $perPage);
+		$data = $db->selectpage('tb_cash_receipt_payment', 'number LIKE "%' . $ubah_pencarian . '%" && tanggal LIKE "%' . $priod . '%" && id_bank="' . $_SESSION['bank'] . '" && type="i" || type_of_receipt  LIKE "%' . $ubah_pencarian . '%" && tanggal LIKE "%' . $priod . '%" && id_bank="' . $_SESSION['bank'] . '" && type="i"', 'tanggal_bank', 'ASC', $startFrom, $perPage);
 
 		$no = $startFrom + 1;
 
@@ -99,7 +99,7 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 				$rows .= '"target":"' . $ubah . '",';
 				$rows .= '"target_folder":"' . $target_folder . '",';
 				$rows .= '"number":"' . $v["number"] . '",';
-				$rows .= '"Date":"' . $date . '",';
+				$rows .= '"Date":"' . $date_bank . '",';
 				$rows .= '"cluster":"' . $cluster . '",';
 				$rows .= '"note":"' . $v['note'] . '",';
 				$rows .= '"dari":"' . $v["dari"] . '",';

@@ -55,7 +55,7 @@ $(document).ready(function () {
       type: "json",
       cache: false,
       success: function (response) {
-        alert(response);
+        //(response);
         if (response == 2) {
           Swal.fire({
             icon: "error",

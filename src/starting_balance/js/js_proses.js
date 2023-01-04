@@ -71,11 +71,13 @@ $(document).ready(function () {
             icon: "success",
             title: "Saldo Awal Berhasil Dimasukan",
             showConfirmButton: false,
-            timer: 2000,
+            timer: 3000,
           });
           document.getElementById("btn").disabled = false;
-          document.location.href =
-            localStorage.getItem("data_link") + "/starting-balance";
+          setTimeout(function () {
+            document.location.href =
+              localStorage.getItem("data_link") + "/starting-balance";
+          }, 4000);
         }
       },
     });

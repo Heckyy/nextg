@@ -31,7 +31,7 @@ class close_book
 						Periode (System)
 					</div>
 					<div class="col-sm-2 col-lg-3">
-						<input type="text" name="periode" id="periode" value="<?= $date; ?>" class="form-control square" disabled="disabled">
+						<input type="date" name="periode" id="periode" class="form-control square">
 					</div>
 				</div>
 				<div class="space_line row d-none">

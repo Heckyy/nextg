@@ -12,14 +12,13 @@ class db
 	var $mysqli_password_app = "";
 
 
-
+	var $query = "";
+	var $query_app = "";
 	function __construct()
 	{
 		$this->query = mysqli_connect($this->mysqli_host, $this->mysqli_user, $this->mysqli_password, $this->mysqli_database);
 		$this->query_app = mysqli_connect($this->mysqli_host_app, $this->mysqli_user_app, $this->mysqli_password_app, $this->mysqli_database_app);
 	}
-
-
 
 	function select($table, $where, $by, $aksi, $kolom = '*')
 	{
@@ -50,8 +49,6 @@ class db
 		$query = mysqli_query($this->query, "SELECT $kolom FROM $table where $where order by $by $aksi LIMIT {$awal} , {$akhir}");
 		return $query;
 	}
-
-
 
 	function selectpage_app($table, $where, $by, $aksi, $awal, $akhir, $kolom = '*')
 	{

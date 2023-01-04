@@ -39,7 +39,6 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 			$final_get_data_current_period = mysqli_fetch_assoc($result_get_data_current_period);
 			$tanggal_bank = $final_get_data_current_period['tanggal_bank'];
 			$jum = mysqli_num_rows($result_get_data_current_period);
-			$final_balance = 0;
 
 			// Get Starting Balance
 			$query_get_starting_balance = "SELECT * from tb_priod where priod='" . $previous_period . "'";
@@ -73,5 +72,5 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 			$response = 2;
 		}
 	}
-	echo $periode3;
+	// echo $periode3;
 }
