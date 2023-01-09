@@ -423,32 +423,41 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 				die();
 			} else {
 				$no = 1;
-				$html = '<div class="col-lg-12" id="process" align="right"><button class="btn btn-sm btn-success" id="process_upload" onclick="process_upload()">Proses</button> <button class="btn btn-sm btn-danger" id="cancel_upload" onclick="cancel_upload()">Batalkan</button></div><div class="scroll"><table class="table"><tr class="sticky-top"><td width="50px" align="center">No</td><td width="300px">Number Bast</td><td width="300px">Property,ID</td><td width="300px">Floor ID</td><td width="300px">Cluster</td><td width="300px">Store ID</td><td width="300px">Invoice No.</td><td width="300px">Customer</td><td width="300px">From Date</td><td width="300px">Until Date</td><td width="300px">Paid Date</td><td width="300px">Month Remaining</td><td width="300px">No. Payment</td><td width="300px">Total Unit</td><td width="300px">LT</td><td width="300px">Tarif IPL Makro</td><td width="300px">Total IPL Makro</td><td width="300px">IPL Pengelola</td></tr>';
+				$html = '<div class="col-lg-12" id="process" align="right"><button class="btn btn-sm btn-success" id="process_upload" onclick="process_upload()">Proses</button> <button class="btn btn-sm btn-danger" id="cancel_upload" onclick="cancel_upload()">Batalkan</button></div><div class="scroll"><table class="table"><tr class="sticky-top"><td width="50px"  align="center">No</td><td width="400px">Number Bast</td><td width="400px">Property,ID</td><td width="400px">Floor ID</td><td width="400px">Cluster</td><td width="400px">Store ID</td><td width="400px">Invoice No.</td><td width="400px">From Date</td><td width="400px">Until Date</td><td width="400px">Paid Date</td><td width="400px">Month Remaining</td><td width="400px">No. Payment</td><td width="400px">Total Unit</td><td width="400px">LT</td><td width="400px">Tarif IPL Makro</td><td width="400px" colspan="3">Total IPL Makro</td><td width="400px" colspan="3">IPL Pengelola</td></tr>';
 				$total_semua = 0;
 				for ($i = 1; $i < count($sheetData); $i++) {
 					$number_bast     	= $sheetData[$i]['0'];
-					$bil_store_id    		= $sheetData[$i]['1'];
+					$bil_store_id    	= $sheetData[$i]['1'];
 					$floor_id    		= $sheetData[$i]['2'];
-					$rw    		= $sheetData[$i]['3'];
+					$rw    				= $sheetData[$i]['3'];
 					$cluster    		= $sheetData[$i]['4'];
-					$bil_store_name    		= $sheetData[$i]['5'];
+					$bil_store_name    	= $sheetData[$i]['5'];
 					$property   		= $sheetData[$i]['6'];
 					$due_date    		= $sheetData[$i]['7'];
-					$from_date    	= $sheetData[$i]['8'];
-					$to_date    			=  $sheetData[$i]['9'];
-					$sisa_bulan    			= $sheetData[$i]['10'];
+					$from_date    		= $sheetData[$i]['8'];
+					$to_date    		=  $sheetData[$i]['9'];
+					$sisa_bulan    		= $sheetData[$i]['10'];
 					$tarif_ipl_real		= str_replace(",", "", $sheetData[$i]['11']);
 					$ipl_month    		= str_replace(",", "", $sheetData[$i]['12']);
-					$total_titipan    		= str_replace(",", "", $sheetData[$i]['13']);
+					$total_titipan    	= str_replace(",", "", $sheetData[$i]['13']);
 					$total_unit    		= $sheetData[$i]['14'];
-					$nomor_document   = $sheetData[$i]['15'];
-					$nomor_bayar    = $sheetData[$i]['16'];
+					$nomor_document   	= $sheetData[$i]['15'];
+					$nomor_bayar   		= $sheetData[$i]['16'];
 					$tanggal_bayar    	= $sheetData[$i]['17'];
-					$luas_tanah    	= str_replace(",", "", $sheetData[$i]['18']);;
+					$luas_tanah  		= str_replace(",", "", $sheetData[$i]['18']);
 					$tarif_makro    	= str_replace(",", "", $sheetData[$i]['19']);
-					$ipl_makro    	= str_replace(",", "", $sheetData[$i]['20']);;
-					$total_ipl_makro    	= str_replace(",", "", $sheetData[$i]['21']);;
+					$ipl_makro    		= str_replace(",", "", $sheetData[$i]['20']);
+					$total_ipl_makro    = str_replace(",", "", $sheetData[$i]['21']);
 					$ipl_pengelola    	= str_replace(",", "", $sheetData[$i]['22']);
+					$tanggal_bayar_new = new DateTime($tanggal_bayar);
+					$tanggal_bayar_fix = $tanggal_bayar_new->format("Y-m-d");
+					$priod_mont = "";
+					$year_priod = "";
+					$customer_name = "";
+					$to_date_format = new DateTime($to_date);
+					$to_period = $to_date_format->format("Y-m-d");
+					$from_date_format = new DateTime($from_date);
+					$from_period = $from_date_format->format("Y-m-d");
 					// $paid_date = $tahun_bank . '-' . $bulan_bank . '-' . $tanggal_bank;
 					if ($priod_mont < 10) {
 						$all_priod = $year_priod . '-0' . $priod_mont;
@@ -492,6 +501,10 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 						$jum_data_ipl = mysqli_num_rows($tarik_data_ipl);
 						$all_priod_fix = '';
 						$data = "";
+						$tarif_makro_rupiah = intval($total_ipl_makro);
+						$grand_total_ipl_makro = number_format($tarif_makro_rupiah, 0, ',', '.');
+						$ipl_pengelola_rupiah = intval($ipl_pengelola);
+						$grand_total_ipl_pengelola = number_format($ipl_pengelola_rupiah, 0, ',', '.');
 						foreach ($tarik_data_ipl as $data_ipl) {
 							if ($jum_data_ipl > 0) {
 								if ($all_priod == $data_ipl['priod'] && $data_ipl['no_payment'] == $no_paymnet) {
@@ -505,12 +518,10 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 							$result_data = "<script>Swal.fire('', '$data', 'error');</script>";
 							die($result_data);
 						} else {
-							$db->insert('tb_ipl_upload', 'number_urut="' . $urut . '",number_bast="' . $number_bast . '",property="' . $property . '",priod_mont="' . $priod_mont . '",year_priod="' . $year_priod . '",floor_id="' . $floor_id . '",cluster="' . $cluster . '",store_id="' . $store_id . '",invoice_no="' . $invoice_no . '",customer_name="' . $customer_name . '",total="' . $total_titipan . '",status="' . $status . '",paid_date="' . $paid_date . '",no_paymnet="' . $no_paymnet . '",total_unit="' . $total_unit . '",luas_tanah="' . $luas_tanah . '",tarif_ipl_makro="' . $tarif_ipl_makro . '",total_ipl_makro="' . $total_ipl_makro . '",ipl_pengelolah="' . $ipl_pengelolah . '",tipe_ipl="' . $tipe_ipl . '"');
-							$nama_dummy = 'Feri Winarta';
+							$db->insert('tb_ipl_upload', 'number_urut="' . $urut . '",number_bast="' . $number_bast . '",property="' . $property . '",priod_mont="' . $priod_mont . '",year_priod="' . $year_priod . '",floor_id="' . $floor_id . '",cluster="' . $cluster . '",store_id="' . $bil_store_id . '",invoice_no="' . $nomor_document . '",customer_name="' . $customer_name . '",total="' . $total_titipan . '",total_unit="' . $total_unit . '",luas_tanah="' . $luas_tanah . '",tarif_ipl_makro="' . $tarif_makro . '",total_ipl_makro="' . $total_ipl_makro . '",ipl_pengelolah="' . $ipl_pengelola . '",tipe_ipl="' . $tipe_ipl . '",dari_periode="' . $from_period . '",sampai_periode="' . $to_period . '",sisa_bulan="' . $sisa_bulan . '",paid_date="' . $tanggal_bayar_fix . '",no_paymnet="' . $nomor_bayar . '"');
 
-							$html = $html . '<tr><td align="center">' . $no . '.</td><td>' . $number_bast . '</td><td>' . $property . '</td><td>' . $floor_id . '</td><td>' . $cluster . '</td><td>' . $bil_store_id . '</td><td>' . $nomor_document . '</td><td>' . $nama_dummy . '</td><td>' . $from_date . '</td><td>' . $to_date . '</td><td>' . $tanggal_bayar . '</td><td class="text-center">' . $sisa_bulan . '</td><td>' . $nomor_bayar . '</td><td>' . $total_unit . '</td><td>' . $luas_tanah . '</td><td>' . $tarif_makro . '</td><td>' . $total_ipl_makro . '</td><td>' . $ipl_pengelola . '</td></tr>';
+							$html = $html . '<tr><td align="center">' . $no . '.</td><td>' . $number_bast . '</td><td>' . $property . '</td><td>' . $floor_id . '</td><td>' . $cluster . '</td><td>' . $bil_store_id . '</td><td>' . $nomor_document . '</td><td>' . $from_date . '</td><td>' . $to_date . '</td><td>' . $tanggal_bayar . '</td><td class="text-center">' . $sisa_bulan . '</td><td>' . $nomor_bayar . '</td><td>' . $total_unit . '</td><td>' . $luas_tanah . '</td><td>' . $tarif_makro . '</td><td colspan="3">' . 'Rp. ' . $grand_total_ipl_makro . '</td><td colspan="3">' . 'Rp. ' . $grand_total_ipl_pengelola . '</td></tr>';
 							$no++;
-							$result_data = "<script>Swal.fire('', '$no_paymnet', 'success');</script>";
 						}
 					}
 				}
@@ -552,8 +563,19 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 		}
 		$jum_amount = 0;
 		$priod = "";
-		$ipl = $db->select('tb_ipl_upload', 'number_urut="' . $_SESSION['urut'] . '"', 'id_ipl_upload', 'ASC');
+		$query_get_data_ipl = "SELECT * from tb_ipl_upload";
+		$ipl = $db->selectAll($query_get_data_ipl);
+		$jum_ipl = mysqli_num_rows($ipl);
+		// while ($data = mysqli_fetch_assoc($ipl)) {
+		// 	var_dump($data);
+		// }
+		echo $jum_ipl;
+
+		die();
+		// $ipl = $db->select('tb_ipl_upload', 'number_urut="' . $_SESSION['urut'] . '"', 'id_ipl_upload', 'ASC');
 		foreach ($ipl as $key => $i) {
+
+			$tipe_ipl = $i['tipe_ipl'];
 			$cek_population_kosong = $db->select('tb_population', 'code_population="' . $i['number_bast'] . '" && cek="1"', 'id_population', 'DESC');
 			if (mysqli_num_rows($cek_population_kosong) > 0) {
 				$cpk = mysqli_fetch_assoc($cek_population_kosong);
@@ -561,6 +583,8 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 				$harga_bangun = 0;
 				$proses_cek_cluster = $db->select('tb_cluster', 'id_cluster', 'id_cluster', 'ASC');
 				foreach ($proses_cek_cluster as $key => $pcc) {
+					$harga_tanah = 0;
+					$harga_bangun = 0;
 					$cek_population_data_masuk = $db->select('tb_population', 'code_population LIKE "%' . $pcc['code_cluster'] . '%" && id_population="' . $cpk['id_population'] . '"', 'id_population', 'DESC');
 					if (mysqli_num_rows($cek_population_data_masuk) > 0) {
 						$harga_tanah = $pcc['the_land_price'];
@@ -587,7 +611,7 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 			if ($i['status'] == 'UNPAID' && empty($i['no_paymnet'])) {
 				$db->insert('tb_unpaid', 'code_population="' . $i['number_bast'] . '",priod="' . $i['priod_mont'] . '",nominal="' . $i['ipl_pengelolah'] . '"');
 			}
-			// if (!empty($i['no_paymnet'])) {
+			// // if (!empty($i['no_paymnet'])) {
 			$amount = $i['ipl_pengelolah'];
 			$jum_amount = $jum_amount + $amount;
 			$cek_population = $db->select('tb_population', 'code_population="' . $i['number_bast'] . '"', 'id_population', 'DESC');
@@ -596,6 +620,9 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 			$cc = mysqli_fetch_assoc($cek_cluster);
 			if (empty($cp['name'])) {
 				$db->update('tb_population', 'name="' . $i['customer_name'] . '"', 'id_population="' . $cp['id_population'] . '"');
+			}
+			if ($tipe_ipl == 'tahunan') {
+				$db->insert('tb_cash_receipt_ipl', 'number="' . $number . '",id_population="' . $cp['id_population'] . '"date="' . $i['paid_date'] . '",price="' . $amount . '",no_payment="' . $i['no_paymnet'] . '",dari_periode="' . $i['dari_periode'] . '",sampai_periode="' . $i['sampai_periode'] . '",sisa_bulan="' . $i['sisa_bulan'] . '"');
 			}
 			$db->insert('tb_cash_receipt_payment_detail', 'number="' . $number . '",id_population="' . $cp['id_population'] . '",date="' . $i['paid_date'] . '",price="' . $amount . '",no_payment="' . $i['no_paymnet'] . '",priod="' . $priod . '",priode_payment="1"');
 			$cek_unpaid = $db->select('tb_unpaid', 'code_population="' . $i['number_bast'] . '" && priod="' . $i['priod_mont'] . '"', 'id_unpaid', 'DESC');

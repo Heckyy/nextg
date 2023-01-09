@@ -125,7 +125,6 @@ $(document).ready(function () {
       formData.append("tipe_ipl", tipe_ipl);
       formData.append("tanggal", tanggal);
       formData.append("proses", proses);
-
       $.ajax({
         type: "POST",
         url:
@@ -283,11 +282,9 @@ function cancel_upload() {
     }
   });
 }
-
 function process_upload() {
   document.getElementById("process_upload").disabled = true;
   document.getElementById("cancel_upload").disabled = true;
-
   Swal.fire({
     icon: "question",
     text: "Apakah Anda Yakin????",
@@ -311,16 +308,16 @@ function process_upload() {
         data: data,
         type: "json",
         cache: false,
-        success: function (data) {
-          //alert(data);
-          document.getElementById("process_upload").disabled = false;
-          Swal.fire("", "Data Berhasil di Masukan", "success");
-          hapus_upload(data);
-          console.log(data);
-          document.location.href =
-            localStorage.getItem("data_link") +
-            "/cash-receipt/view-ipl/" +
-            data;
+        success: function (response) {
+          console.log(response);
+          // document.getElementById("process_upload").disabled = false;
+          // Swal.fire("", "Data Berhasil di Masukan", "success");
+          // hapus_upload(data);
+          // console.log(data);
+          // document.location.href =
+          //   localStorage.getItem("data_link") +
+          //   "/cash-receipt/view-ipl/" +
+          //   data;
         },
       });
 

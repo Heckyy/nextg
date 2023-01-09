@@ -72,8 +72,6 @@ $(document).ready(function () {
                   "<td style='color:blue;'><button style='background-color:transparent;border:none;' type='button' data-bs-toggle='modal' data-bs-target='#myModal'>" +
                   trk.tagihan +
                   "</button ></td>";
-                html += "<td>" + trk.bayar + "</td>";
-                html += "<td>" + trk.sisa + "</td>";
                 html += "<td>" + trk.catatan + "</td>";
                 html += "<td align='center'>" + trk.status + "</td>";
                 html += "</tr>";

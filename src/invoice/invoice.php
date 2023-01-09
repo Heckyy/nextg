@@ -209,8 +209,6 @@ class invoice
 								<td width="100PX"><b>Tanggal</b></td>
 								<td><b>Pemilik</b></td>
 								<td><b>Tagihan</b></td>
-								<td><b>Bayar</b></td>
-								<td><b>Sisa</b></td>
 								<td><b>Catatan</b></td>
 								<td align="center" width="80px"><b>Status</b></td>
 							</tr>

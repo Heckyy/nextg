@@ -23,15 +23,11 @@ $(document).ready(function () {
       pageChange: function (page) {
         var html = "";
         var data = "";
-
         var cari = document.getElementById("cari").value;
         cari = cari.replace("&", "and_symbol");
-
         var bulan = document.getElementById("bulan").value;
         var tahun = document.getElementById("tahun").value;
-
         cari = cari.replace("&", "and_symbol");
-
         data += "&cari=" + cari;
         data += "&bulan=" + bulan;
         data += "&tahun=" + tahun;
