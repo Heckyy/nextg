@@ -565,13 +565,6 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 		$priod = "";
 		$query_get_data_ipl = "SELECT * from tb_ipl_upload";
 		$ipl = $db->selectAll($query_get_data_ipl);
-		$jum_ipl = mysqli_num_rows($ipl);
-		// while ($data = mysqli_fetch_assoc($ipl)) {
-		// 	var_dump($data);
-		// }
-		echo $jum_ipl;
-
-		die();
 		// $ipl = $db->select('tb_ipl_upload', 'number_urut="' . $_SESSION['urut'] . '"', 'id_ipl_upload', 'ASC');
 		foreach ($ipl as $key => $i) {
 
@@ -611,7 +604,6 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 			if ($i['status'] == 'UNPAID' && empty($i['no_paymnet'])) {
 				$db->insert('tb_unpaid', 'code_population="' . $i['number_bast'] . '",priod="' . $i['priod_mont'] . '",nominal="' . $i['ipl_pengelolah'] . '"');
 			}
-			// // if (!empty($i['no_paymnet'])) {
 			$amount = $i['ipl_pengelolah'];
 			$jum_amount = $jum_amount + $amount;
 			$cek_population = $db->select('tb_population', 'code_population="' . $i['number_bast'] . '"', 'id_population', 'DESC');
@@ -622,15 +614,28 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 				$db->update('tb_population', 'name="' . $i['customer_name'] . '"', 'id_population="' . $cp['id_population'] . '"');
 			}
 			if ($tipe_ipl == 'tahunan') {
-				$db->insert('tb_cash_receipt_ipl', 'number="' . $number . '",id_population="' . $cp['id_population'] . '"date="' . $i['paid_date'] . '",price="' . $amount . '",no_payment="' . $i['no_paymnet'] . '",dari_periode="' . $i['dari_periode'] . '",sampai_periode="' . $i['sampai_periode'] . '",sisa_bulan="' . $i['sisa_bulan'] . '"');
+				$db->insert('tb_cash_receipt_payment_detail', 'number="' . $number . '",id_population="' . $cp['id_population'] . '",date="' . $i['paid_date'] . '",price="' . $amount . '",no_payment="' . $i['no_paymnet'] . '",dari_periode="' . $i['dari_periode'] . '",sampai_periode="' . $i['sampai_periode'] . '",sisa_bulan="' . $i['sisa_bulan'] . '"');
+
+				$db->update(
+					'tb_invoice_fix',
+					'status="paid",nominal_bayar="' . $i['ipl_pengelolah'] . '"',
+					'nomor_bast="' . $i['number_bast'] . '" && tanggal_tgh LIKE "%2023-01%"'
+				);
+			} else {
+				$db->insert('tb_cash_receipt_payment_detail', 'number="' . $number . '",id_population="' . $cp['id_population'] . '",date="' . $i['paid_date'] . '",price="' . $amount . '",no_payment="' . $i['no_paymnet'] . '",priod="' . $priod . '",priode_payment="1"');
+				$db->update(
+					'tb_invoice_fix',
+					'status="paid",nominal_bayar="' . $i['ipl_pengelolah'] . '"',
+					'nomor_bast="' . $i['number_bast'] . '" && tanggal_tgh LIKE "%' . $priod . '%"'
+				);
 			}
-			$db->insert('tb_cash_receipt_payment_detail', 'number="' . $number . '",id_population="' . $cp['id_population'] . '",date="' . $i['paid_date'] . '",price="' . $amount . '",no_payment="' . $i['no_paymnet'] . '",priod="' . $priod . '",priode_payment="1"');
+
 			$cek_unpaid = $db->select('tb_unpaid', 'code_population="' . $i['number_bast'] . '" && priod="' . $i['priod_mont'] . '"', 'id_unpaid', 'DESC');
-			$update_status_bayar = $db->update(
-				'tb_invoice_fix',
-				'status="paid",nominal_bayar="' . $i['ipl_pengelolah'] . '"',
-				'nomor_bast="' . $i['number_bast'] . '" && tanggal_tgh LIKE "%' . $priod . '%"'
-			);
+			// $update_status_bayar = $db->update(
+			// 	'tb_invoice_fix',
+			// 	'status="paid",nominal_bayar="' . $i['ipl_pengelolah'] . '"',
+			// 	'nomor_bast="' . $i['number_bast'] . '" && tanggal_tgh LIKE "%' . $priod . '%"'
+			// );
 			if (mysqli_num_rows($cek_unpaid) > 0) {
 				$cu = mysqli_fetch_assoc($cek_unpaid);
 				$db->hapus('tb_unpaid', 'id_unpaid=' . $cu['id_unpaid'] . '"');

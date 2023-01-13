@@ -16,6 +16,7 @@ $library_class = new library_class();
 
 $e = mysqli_fetch_assoc($db->select('tb_settings', 'id_settings', 'id_settings', 'DESC'));
 
+
 $link       = "";
 $title      = "";
 $body       = 'auth';
@@ -53,13 +54,7 @@ if (!empty($_SESSION['code_employee'])) {
     //get access from db
     $access = $db->select('tb_access', 'code_employee="' . $_SESSION['code_employee'] . '"', 'id_access', 'DESC');
     $acs = mysqli_fetch_assoc($access);
-    // var_dump($acs);
-    //var_dump($_SESSION);
-
     // Get Name Employee
-
-
-
     //setting session for grant access validation in each module
     $_SESSION['settings']   = $acs['settings'];
     $_SESSION['unit']       = $acs['unit'];

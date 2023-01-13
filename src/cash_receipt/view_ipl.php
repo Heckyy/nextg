@@ -4,7 +4,6 @@ class view_cash_receipt_ipl
 
 	function data_view($db, $e, $library_class, $code)
 	{
-
 		$type_of_receipt = $db->select('tb_type_of_receipt', 'id_type_of_receipt', 'type_of_receipt', 'ASC');
 
 		$view = base64_decode($code);

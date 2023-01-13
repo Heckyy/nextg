@@ -309,15 +309,15 @@ function process_upload() {
         type: "json",
         cache: false,
         success: function (response) {
+          // alert(response);
+          document.getElementById("process_upload").disabled = false;
+          Swal.fire("", "Data Berhasil di Masukan", "success");
+          hapus_upload(response);
           console.log(response);
-          // document.getElementById("process_upload").disabled = false;
-          // Swal.fire("", "Data Berhasil di Masukan", "success");
-          // hapus_upload(data);
-          // console.log(data);
-          // document.location.href =
-          //   localStorage.getItem("data_link") +
-          //   "/cash-receipt/view-ipl/" +
-          //   data;
+          document.location.href =
+            localStorage.getItem("data_link") +
+            "/cash-receipt/view-ipl/" +
+            response;
         },
       });
 
