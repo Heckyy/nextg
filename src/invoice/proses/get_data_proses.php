@@ -53,7 +53,7 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 		} else if ($select_dues_type == "Paid") {
 			$result_nominal_tagihan = 0;
 			$datas = $db->selectpage('tb_invoice_fix', 'status = "paid" && tanggal_tgh LIKE "%' . $priod . '%" && pemilik LIKE"%' . $ubah_pencarian . '%"', 'tanggal_tgh', "ASC", $startFrom, $perPage);
-			$datas = $db->select('tb_invoice_fix', 'status = "paid" && tanggal_tgh LIKE "%' . $priod . '%" && pemilik LIKE"%' . $ubah_pencarian . '%"', 'tanggal_tgh', "ASC");
+			$datas_all = $db->select('tb_invoice_fix', 'status = "paid" && tanggal_tgh LIKE "%' . $priod . '%" && pemilik LIKE"%' . $ubah_pencarian . '%"', 'tanggal_tgh', "ASC");
 			while ($data = mysqli_fetch_assoc($datas_all)) {
 
 				$nominal = intval($data['nominal_tagihan']);

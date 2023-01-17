@@ -458,6 +458,11 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 					$to_period = $to_date_format->format("Y-m-d");
 					$from_date_format = new DateTime($from_date);
 					$from_period = $from_date_format->format("Y-m-d");
+					$bil_store_name_explode = explode(" ", $bil_store_name);
+					$bast = $bil_store_name_explode[2];
+					$number_bast = "BGM/BAST/" . $bast;
+					// var_dump($bast);
+
 					// $paid_date = $tahun_bank . '-' . $bulan_bank . '-' . $tanggal_bank;
 					if ($priod_mont < 10) {
 						$all_priod = $year_priod . '-0' . $priod_mont;
@@ -614,12 +619,16 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 				$db->update('tb_population', 'name="' . $i['customer_name'] . '"', 'id_population="' . $cp['id_population'] . '"');
 			}
 			if ($tipe_ipl == 'tahunan') {
+				$period_tahunan = $i['dari_periode'];
+				$periode = new DateTime($period_tahunan);
+				$periode_fix = $periode->format("Y-m");
+
 				$db->insert('tb_cash_receipt_payment_detail', 'number="' . $number . '",id_population="' . $cp['id_population'] . '",date="' . $i['paid_date'] . '",price="' . $amount . '",no_payment="' . $i['no_paymnet'] . '",dari_periode="' . $i['dari_periode'] . '",sampai_periode="' . $i['sampai_periode'] . '",sisa_bulan="' . $i['sisa_bulan'] . '"');
 
 				$db->update(
 					'tb_invoice_fix',
 					'status="paid",nominal_bayar="' . $i['ipl_pengelolah'] . '"',
-					'nomor_bast="' . $i['number_bast'] . '" && tanggal_tgh LIKE "%2023-01%"'
+					'nomor_bast="' . $i['number_bast'] . '" && tanggal_tgh LIKE "%' . $periode_fix . '%"'
 				);
 			} else {
 				$db->insert('tb_cash_receipt_payment_detail', 'number="' . $number . '",id_population="' . $cp['id_population'] . '",date="' . $i['paid_date'] . '",price="' . $amount . '",no_payment="' . $i['no_paymnet'] . '",priod="' . $priod . '",priode_payment="1"');
