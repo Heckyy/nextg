@@ -22,7 +22,7 @@ class invoice
 			$this_month = trim($this_date_split[1]);
 			$this_year = trim($this_date_split[2]);
 
-			$custom_date = ("2022-01-08");
+			// $this_date_db = ("2022-12-01");
 			// $this_date_db = date("Y-m-d");
 			$this_date_db = date("Y-m-d");
 
@@ -39,30 +39,31 @@ class invoice
 				$nomor_tagihan1 = str_pad($tagihan_awal, 4, "0", STR_PAD_LEFT);
 				$nomor_tagihan_fix = trim("TGH{$this_year}{$this_month}{$nomor_tagihan1}");
 				$query_cek_tagihan = "SELECT * from tb_invoice_fix where nomor_tgh='{$nomor_tagihan_fix}'";
-				// $query_cek_tagihan = "SELECT * from tb_invoice_fix where nomor_tgh='{$nomor_tagihan_fix}' && tanggal_tgh LIKE '%2022-11%'";
+				// $query_cek_tagihan = "SELECT * from tb_invoice_fix where nomor_tgh='{$nomor_tagihan_fix}' && tanggal_tgh LIKE '%2022-12%'";
 				$cek_data_tagihan = $db->selectAll($query_cek_tagihan);
-				$code_population = $value['code_population'];
-				$explode_population = explode("/", $code_population);
-				$code_population_result = $explode_population[2];
-				$type_property = $result_cek_population['type_property'];
-				$query_cluster = "SELECT * from tb_cluster where code_cluster = '{$code_population_result}'";
-				$cek_cluster = $db->selectAll($query_cluster);
-				while ($row = mysqli_fetch_assoc($cek_cluster)) {
-					$surface_area = $value['surface_area'];
-					$building_area = $value['building_area'];
-					if ($type_property == 1) {
-						$the_land_price = $row['the_land_price'] * $surface_area;
-						$building_price = $row['building_price'] * $building_area;
-						$macro_price = $row['macro_price'] * $surface_area;
-						$grand_total_ipl = $the_land_price + $building_price - $macro_price;
-					} else {
-						$the_land_price = $row['the_land_price'] * $surface_area;
-						$macro_price = $row['macro_price'] * $surface_area;
-						$grand_total_ipl = $the_land_price - $macro_price;
-					}
-				}
-				$tagihan_awal++;
 				if (mysqli_num_rows($cek_data_tagihan) == 0) {
+					$code_population = $value['code_population'];
+					$explode_population = explode("/", $code_population);
+					$code_population_result = $explode_population[2];
+					$type_property = $result_cek_population['type_property'];
+					$query_cluster = "SELECT * from tb_cluster where code_cluster = '{$code_population_result}'";
+					$cek_cluster = $db->selectAll($query_cluster);
+					while ($row = mysqli_fetch_assoc($cek_cluster)) {
+						$surface_area = $value['surface_area'];
+						$building_area = $value['building_area'];
+						if ($type_property == 1) {
+							$the_land_price = $row['the_land_price'] * $surface_area;
+							$building_price = $row['building_price'] * $building_area;
+							$macro_price = $row['macro_price'] * $surface_area;
+							$grand_total_ipl = $the_land_price + $building_price - $macro_price;
+						} else {
+							$the_land_price = $row['the_land_price'] * $surface_area;
+							$macro_price = $row['macro_price'] * $surface_area;
+							$grand_total_ipl = $the_land_price - $macro_price;
+						}
+					}
+					$tagihan_awal++;
+
 					$db->insert('tb_invoice_fix', 'nomor_bast="' . $value['code_population'] . '",nomor_tgh="' . $nomor_tagihan_fix . '",tanggal_tgh="' . $this_date_db . '",pemilik="' . $pemilik . '",nominal_tagihan="' . $grand_total_ipl . '",status="unpaid"');
 					//$db->insert('tb_invoice_fix', 'nomor_bast="' . $value['code_population'] . '",nomor_tgh="' . $nomor_tagihan_fix . '",tanggal_tgh="2022-02-08",pemilik="' . $pemilik . '",nominal_tagihan="' . $grand_total_ipl . '",status="unpaid"');
 				}

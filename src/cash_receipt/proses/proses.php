@@ -512,7 +512,7 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 						$grand_total_ipl_pengelola = number_format($ipl_pengelola_rupiah, 0, ',', '.');
 						foreach ($tarik_data_ipl as $data_ipl) {
 							if ($jum_data_ipl > 0) {
-								if ($all_priod == $data_ipl['priod'] && $data_ipl['no_payment'] == $no_paymnet) {
+								if ($data_ipl['no_payment'] == $nomor_bayar) {
 									$data = "Data Sudah Ada!";
 								} else {
 									$data = "Data Belum Ada!";
@@ -630,6 +630,7 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 					'status="paid",nominal_bayar="' . $i['ipl_pengelolah'] . '"',
 					'nomor_bast="' . $i['number_bast'] . '" && tanggal_tgh LIKE "%' . $periode_fix . '%"'
 				);
+				$db->hapus("tb_ipl_upload", "number_bast='" . $i['number_bast'] . "'");
 			} else {
 				$db->insert('tb_cash_receipt_payment_detail', 'number="' . $number . '",id_population="' . $cp['id_population'] . '",date="' . $i['paid_date'] . '",price="' . $amount . '",no_payment="' . $i['no_paymnet'] . '",priod="' . $priod . '",priode_payment="1"');
 				$db->update(
@@ -638,7 +639,6 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 					'nomor_bast="' . $i['number_bast'] . '" && tanggal_tgh LIKE "%' . $priod . '%"'
 				);
 			}
-
 			$cek_unpaid = $db->select('tb_unpaid', 'code_population="' . $i['number_bast'] . '" && priod="' . $i['priod_mont'] . '"', 'id_unpaid', 'DESC');
 			// $update_status_bayar = $db->update(
 			// 	'tb_invoice_fix',
