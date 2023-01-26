@@ -106,7 +106,6 @@ $(document).ready(function () {
     document.getElementById("btn").disabled = true;
     var tanggal_bank = document.getElementById("tanggal_bank").value;
     var tanggal = document.getElementById("tanggal").value;
-    var tipe_ipl = document.getElementById("tipe_ipl").value;
     // alert(tipe_ipl);
 
     $("#data_view").html(
@@ -122,9 +121,9 @@ $(document).ready(function () {
       let formData = new FormData();
       formData.append("file_excel", file_excel);
       formData.append("tanggal_bank", tanggal_bank);
-      formData.append("tipe_ipl", tipe_ipl);
       formData.append("tanggal", tanggal);
       formData.append("proses", proses);
+
       $.ajax({
         type: "POST",
         url:
@@ -139,11 +138,11 @@ $(document).ready(function () {
           document.getElementById("btn").disabled = false;
           $("#data_view").html(data);
         },
-        error: function () {
-          document.getElementById("btn").disabled = false;
-          Swal.fire("", "File Gagal di Proses", "error");
-          batal_upload();
-        },
+        // error: function () {
+        //   document.getElementById("btn").disabled = false;
+        //   Swal.fire("", "File Gagal di Proses", "error");
+        //   batal_upload();
+        // },
       });
     }
     return false;
@@ -282,9 +281,11 @@ function cancel_upload() {
     }
   });
 }
+
 function process_upload() {
   document.getElementById("process_upload").disabled = true;
   document.getElementById("cancel_upload").disabled = true;
+
   Swal.fire({
     icon: "question",
     text: "Apakah Anda Yakin????",
@@ -308,16 +309,16 @@ function process_upload() {
         data: data,
         type: "json",
         cache: false,
-        success: function (response) {
-          // alert(response);
+        success: function (data) {
+          // alert(data);
           document.getElementById("process_upload").disabled = false;
           Swal.fire("", "Data Berhasil di Masukan", "success");
-          hapus_upload(response);
-          console.log(response);
+          hapus_upload(data);
+          console.log(data);
           document.location.href =
             localStorage.getItem("data_link") +
             "/cash-receipt/view-ipl/" +
-            response;
+            data;
         },
       });
 

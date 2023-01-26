@@ -51,18 +51,7 @@ class view_upload
 									</td>
 									<td></td>
 								</tr>
-								<tr class="bg-white">
-									<td class="d-block">
-										<h6>Tipe IPL:</h6>
-										<select id="tipe_ipl" name="tipe_ipl" class="form-control square" required="required" onchange="change()">
-											<option value="null">Select</option>
-											<option value="bulanan">Bulanan</option>
-											<option value="tahunan">Tahunan</option>
 
-										</select>
-									</td>
-									<td></td>
-								</tr>
 								<tr class="bg-white">
 									<td>
 										<h6>Masukan File : </h6>
