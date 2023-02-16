@@ -15,17 +15,23 @@ class invoice
 			} else {
 				$ubah_pencarian = "";
 			}
+			// GET PREVIOUS MONTH
+			$prev_periode = date('Y-m', strtotime("-1 month"));
+
+			// 			var_dump($prev_periode);
 			// GET CURRENT DATE
 			$this_date = date("d - m - Y");
 			$this_date_split = explode("-", $this_date);
 			$this_day = $this_date_split[0];
-			$this_month = trim($this_date_split[1]);
-			$this_year = trim($this_date_split[2]);
+			// $this_month = trim($this_date_split[1]);
+			// $this_year = trim($this_date_split[2]);
+			$this_month = "12";
+			$this_year = "2022";
 
 			// $custom_date = ("2022-01-08");
 			// $this_date_db = date("Y-m-d");
-			$this_date_db = date("Y-m-d");
-			// $this_date_db = "2022-12-01";
+			// $this_date_db = date("Y-m-d");
+			$this_date_db = "2022-12-01";
 
 			//Get Data Population
 			$query_population = "SELECT * from tb_population";
@@ -37,10 +43,22 @@ class invoice
 			$tagihan_awal = 1;
 			foreach ($cek_population as $key => $value) {
 				$pemilik = $value['name'];
+				$nomor_bast = $value['code_population'];
+				$query_get_data_prev_month = "SELECT * from tb_invoice_fix where nomor_bast='" . $nomor_bast . "' && tanggal_tgh like'%" . $prev_periode . "%'";
+				$result_get_data_prev_month = $db->selectAll($query_get_data_prev_month);
+				$final_get_data_prev_month = mysqli_fetch_assoc($result_get_data_prev_month);
+				$total_prev_month = mysqli_num_rows($result_get_data_prev_month);
+				if ($total_prev_month != 0) {
+					$sisa = $final_get_data_prev_month['sisa'];
+				} else {
+					$sisa = 0;
+				}
+
+
 				$nomor_tagihan1 = str_pad($tagihan_awal, 4, "0", STR_PAD_LEFT);
 				$nomor_tagihan_fix = trim("TGH{$this_year}{$this_month}{$nomor_tagihan1}");
 				// $query_cek_tagihan = "SELECT * from tb_invoice_fix where nomor_tgh='{$nomor_tagihan_fix}'";
-				// $query_cek_tagihan = "SELECT * from tb_invoice_fix where nomor_tgh='{$nomor_tagihan_fix}' && tanggal_tgh LIKE '%2022-12%'";
+				// $query_cek_tagihan = "SELECT * from tb_invoice_fix where nomor_tgh='{$nomor_tagihan_fix}' && tanggal_tgh LIKE '%2022-02%'";
 				$query_cek_tagihan = "SELECT * from tb_invoice_fix where nomor_tgh='{$nomor_tagihan_fix}' && tanggal_tgh LIKE '%" . $this_date_db . "%'";
 				$cek_data_tagihan = $db->selectAll($query_cek_tagihan);
 				$code_population = $value['code_population'];
@@ -63,9 +81,27 @@ class invoice
 						$grand_total_ipl = $the_land_price - $macro_price;
 					}
 				}
+
+				if ($sisa == '0') {
+					$sisa_ipl = $grand_total_ipl;
+				} else {
+
+					$sisa_ipl = intval($sisa) - intval($grand_total_ipl);
+				}
+
+				// echo $sisa_ipl;
+				// die();
 				$tagihan_awal++;
 				if (mysqli_num_rows($cek_data_tagihan) == 0) {
-					$db->insert('tb_invoice_fix', 'nomor_bast="' . $value['code_population'] . '",nomor_tgh="' . $nomor_tagihan_fix . '",tanggal_tgh="' . $this_date_db . '",pemilik="' . $pemilik . '",nominal_tagihan="' . $grand_total_ipl . '",status="unpaid"');
+					if ($sisa == '0') {
+						$grand_total_ipl_fix = $grand_total_ipl;
+						$db->insert('tb_invoice_fix', 'nomor_bast="' . $value['code_population'] . '",nomor_tgh="' . $nomor_tagihan_fix . '",tanggal_tgh="' . $this_date_db . '",pemilik="' . $pemilik . '",nominal_tagihan="' . $grand_total_ipl . '",status="unpaid"');
+					} else {
+						$grand_total_ipl_fix = $sisa - $grand_total_ipl;
+						// $db->insert('tb_invoice_fix', 'nomor_bast="' . $value['code_population'] . '",nomor_tgh="' . $nomor_tagihan_fix . '",tanggal_tgh="' . $this_date_db . '",pemilik="' . $pemilik . '",nominal_tagihan="' . $grand_total_ipl . '",status="paid",sisa="' . $sisa_ipl . '"');
+						$db->insert('tb_invoice_fix', 'nomor_bast="' . $value['code_population'] . '",nomor_tgh="' . $nomor_tagihan_fix . '",tanggal_tgh="' . $this_date_db . '",pemilik="' . $pemilik . '",nominal_tagihan="' . $grand_total_ipl . '",status="paid",sisa="20"');
+					}
+
 					//$db->insert('tb_invoice_fix', 'nomor_bast="' . $value['code_population'] . '",nomor_tgh="' . $nomor_tagihan_fix . '",tanggal_tgh="2022-02-08",pemilik="' . $pemilik . '",nominal_tagihan="' . $grand_total_ipl . '",status="unpaid"');
 				}
 			}

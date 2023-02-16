@@ -2,6 +2,7 @@ $(document).ready(function () {
   $("#tipe_ipl").select2({
     theme: "bootstrap-5",
   });
+
   $("#new").submit(function () {
     document.getElementById("btn").disabled = true;
 
@@ -326,6 +327,13 @@ function process_upload() {
     } else {
       document.getElementById("process_upload").disabled = false;
     }
+  });
+}
+
+function download_ipl() {
+  var btn = document.getElementById("test-download");
+  btn.addEventListener("click", function () {
+    alert("OK");
   });
 }
 

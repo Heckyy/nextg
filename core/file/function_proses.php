@@ -20,7 +20,7 @@ class db
 		$this->query_app = mysqli_connect($this->mysqli_host_app, $this->mysqli_user_app, $this->mysqli_password_app, $this->mysqli_database_app);
 	}
 
-	function select($table, $where, $by, $aksi, $kolom = '*')
+	function select($table, ?string $where, $by, $aksi, $kolom = '*')
 	{
 		$query = mysqli_query($this->query, "SELECT $kolom FROM $table where $where order by $by $aksi");
 		return $query;

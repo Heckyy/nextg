@@ -88,7 +88,7 @@ if (!empty($_SESSION['id_employee']) && !empty($_POST['proses'])) {
 			$tagihan = "Rp." . number_format($intTagihan, 0, ',', ',');
 			$bayar = "Rp." . number_format($intBayar, 0, ',', ',');
 			$sisa = "Rp." . number_format($intSisa, 0, ',', ',');
-			$total_bayar = $result_nominal_tagihan['nominal_tagihan'];
+			// $total_bayar = $result_nominal_tagihan['nominal_tagihan'];
 			$total_bayar_fix = "Rp. " . number_format($result_nominal_tagihan2, 0, ",", ",");
 			$rows[] = array(
 				"no" => $nomor_urut,

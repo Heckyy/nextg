@@ -255,6 +255,9 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 		echo str_replace("=", "", base64_encode($_SESSION['number_receipt']));
 	} else if ($proses == 'upload' && $_SESSION['cash_receipt_new'] == 1) {
 
+
+
+
 		$tanggal = $_POST['tanggal'];
 		$tanggal_bank = $_POST['tanggal_bank'];
 		$explode_tanggal = explode('-', $tanggal);
@@ -493,7 +496,9 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 			}
 			$db->insert('tb_cash_receipt_payment_detail', 'number="' . $number . '",id_population="' . $cp['id_population'] . '",date="' . $i['paid_date'] . '",price="' . $amount . '",no_payment="' . $i['no_paymnet'] . '",priod="' . $priod . '",priode_payment="1"');
 			$cek_unpaid = $db->select('tb_unpaid', 'code_population="' . $i['number_bast'] . '" && priod="' . $i['priod_mont'] . '"', 'id_unpaid', 'DESC');
-			$sisa = intval($i['ipl_pengelolah']) - intval($hitung_awal);
+			$nominal_tagihan = intval($hitung_awal);
+			$nominal_bayar_fix = intval($i['ipl_pengelolah']);
+			$sisa = $nominal_bayar_fix - $nominal_tagihan;
 			$update_status_bayar = $db->update(
 				'tb_invoice_fix',
 				'status="paid",nominal_bayar="' . $i['ipl_pengelolah'] . '",sisa="' . $sisa . '"',

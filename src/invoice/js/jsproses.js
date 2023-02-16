@@ -74,8 +74,19 @@ $(document).ready(function () {
                   "</button ></td>";
                 html += "<td>" + trk.sisa + "</td>";
                 html += "<td>" + trk.catatan + "</td>";
-                html += "<td align='center'>" + trk.status + "</td>";
-                html += "</tr>";
+                if (trk.status == "UNPAID") {
+                  html +=
+                    "<td align='center' style='color:red;'>" +
+                    trk.status +
+                    "</td>";
+                  html += "</tr>";
+                } else {
+                  html +=
+                    "<td align='center' style='color:green;'>" +
+                    trk.status +
+                    "</td>";
+                  html += "</tr>";
+                }
                 total_tagihan_bayar = Number(trk.total_bayar);
                 total_tagihan_bayar2 = total_tagihan_bayar.simpleMoneyFormat;
               });

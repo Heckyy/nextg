@@ -4,10 +4,20 @@ ErrorDocument 500 /src/error/error_500.html
 
 RewriteEngine on
 
+
+
+
 RewriteCond %{HTTPS} off 
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# RewriteRule ^download/.csv$ template_IPL.csv [L]
+
+
+
 RewriteRule ^home$ index.php?hal=home
+RewriteRule ^download$ index.php?hal=download
+# RewriteRule ^template_IPL.xlsx$ index.php?hal=cash_receipt&get=upload
+# RewriteRule ^download$ index.php?hal=download
 
 RewriteRule ^rw$ index.php?hal=rw
 RewriteRule ^rw/edit$ index.php?hal=rw&get=edit
@@ -16,8 +26,6 @@ RewriteRule ^rt$ index.php?hal=rt
 RewriteRule ^rt/view/(.*)$ index.php?hal=rt&get=view&view=$1
 RewriteRule ^rt/edit/(.*)$ index.php?hal=rt&get=edit&view=$1
 RewriteRule ^rt/new$ index.php?hal=rt&get=new
-
-
 
 RewriteRule ^account$ index.php?hal=account
 RewriteRule ^account/view/(.*)$ index.php?hal=account&get=view&view=$1

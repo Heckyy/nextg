@@ -1,4 +1,7 @@
 <?php
+
+use FontLib\Table\Type\head;
+
 class all_file
 {
 
@@ -28,6 +31,14 @@ class all_file
 		include_once("src/home/home.php");
 		$home = new home();
 		echo $home->view_home($db, $e, $library_class, $view, $page);
+	}
+
+	function hal_download($db, $e, $library_class, $get, $view, $page)
+	{
+
+		include_once("src/download/downloadController.php");
+		$download = new Download();
+		$download->excel($e);
 	}
 
 	function hal_settings($db, $e, $library_class, $get, $view, $page)

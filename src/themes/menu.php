@@ -3,6 +3,7 @@
   {
     function menu_top($e)
     {
+
   ?>
       <nav class="navbar navbar-header navbar-expand navbar-light fixed-top bg-white shadow">
         <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
@@ -61,6 +62,8 @@
     }
     function menu_view($e, $db, $hal)
     {
+      include_once("core/file/function_proses.php");
+      $version = mysqli_fetch_assoc($db->select('tb_settings', 'id_settings', 'id_settings', 'DESC'));
     ?>
       <style type="text/css">
         input {
@@ -683,6 +686,7 @@
 
             </ul>
           </div>
+          <div class="version text-center"><?= $version['version']  ?></div>
         </div>
       </div>
   <?php

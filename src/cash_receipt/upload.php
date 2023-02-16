@@ -63,6 +63,9 @@ class view_upload
 										</button>
 									</td>
 								</tr>
+								<tr class="">
+									<td><a href="<?= $e; ?>/download">Download Contoh Template IPL</a></td>
+								</tr>
 							</table>
 						</div>
 					</div>
