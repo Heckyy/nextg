@@ -296,10 +296,7 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 		} else {
 			$no = 1;
 			$html = '<div class="col-lg-12" id="process" align="right"><button class="btn btn-sm btn-success" id="process_upload" onclick="process_upload()">Proses</button> <button class="btn btn-sm btn-danger" id="cancel_upload" onclick="cancel_upload()">Batalkan</button></div><div class="scroll"><table class="table"><tr class="sticky-top"><td width="50px" align="center">No</td><td width="300px">Number Bast</td><td width="300px">Property,ID</td><td width="300px">Period Month</td><td width="300px">Year Period</td><td width="300px">Floor ID</td><td width="300px">Cluster</td><td width="300px">Store ID</td><td width="300px">Invoice No.</td><td width="300px">Customer</td><td width="300px">Total</td><td>IPL Price</td><td width="300px">Status</td><td width="300px">Paid Date</td><td width="300px">No. Payment</td><td width="300px">Total Unit</td><td width="300px">LT</td><td width="300px">Tarif IPL Makro</td><td width="300px">Total IPL Makro</td><td width="300px">IPL Pengelola</td></tr>';
-
 			$total_semua = 0;
-
-
 			for ($i = 1; $i < count($sheetData); $i++) {
 				$number_bast     	= $sheetData[$i]['0'];
 				$property    		= $sheetData[$i]['1'];
@@ -343,16 +340,24 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 					$building_area = $result_cek_population['building_area'];
 					$type_property = $result_cek_population['type_property'];
 					$surface_area = $result_cek_population['surface_area'];
-					$c = mysqli_fetch_assoc($db->select('tb_cluster', 'id_cluster="' . $result_cek_population['id_cluster'] . '"', 'id_cluster', 'DESC'));
+					// explode to get ID Cluster
+					$explode_id_cluster = explode("/", $number_bast);
+					$code_cluster = $explode_id_cluster[2];
+					// $c = mysqli_fetch_assoc($db->select('tb_cluster', 'id_cluster="' . $result_cek_population['id_cluster'] . '"', 'id_cluster', 'DESC'));
+					$c = mysqli_fetch_assoc($db->select('tb_cluster', 'code_cluster="' . $code_cluster . '"', 'id_cluster', 'DESC'));
 					if ($type_property == 1) {
 						$the_land_price = $c['the_land_price'] * $surface_area;
 						$building_price = $c['building_price'] * $building_area;
 						$macro_price = $c['macro_price'] * $surface_area;
+						// $grand_total_ipl = 1;
 						$grand_total_ipl = $the_land_price + $building_price - $macro_price;
-					} else {
+					} else if ($type_property == 2) {
 						$the_land_price = $c['the_land_price'] * $surface_area;
 						$macro_price = $c['macro_price'] * $surface_area;
 						$grand_total_ipl = $the_land_price - $macro_price;
+						// $grand_total_ipl = 2;
+					} else {
+						$grand_total_ipl = 0;
 					}
 					if (mysqli_num_rows($cek_population) == 0) {
 						$potong = substr($number_bast, -4);
@@ -504,10 +509,10 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 				'status="paid",nominal_bayar="' . $i['ipl_pengelolah'] . '",sisa="' . $sisa . '"',
 				'nomor_bast="' . $i['number_bast'] . '" && tanggal_tgh LIKE "%' . $priod . '%"'
 			);
-			if (mysqli_num_rows($cek_unpaid) > 0) {
-				$cu = mysqli_fetch_assoc($cek_unpaid);
-				$db->hapus('tb_unpaid', 'id_unpaid=' . $cu['id_unpaid'] . '"');
-			}
+			// if (mysqli_num_rows($cek_unpaid) > 0) {
+			// 	$cu = mysqli_fetch_assoc($cek_unpaid);
+			// 	$db->hapus('tb_unpaid', 'id_unpaid=' . $cu['id_unpaid'] . '"');
+			// }
 		}
 		$tanggal_fix = $_POST['tanggal'];
 		$tanggal_bank_fix = $_POST['tanggal_bank'];
@@ -517,6 +522,7 @@ if (!empty($_POST['proses']) && !empty($_SESSION['id_employee'])) {
 		$tahun_bank = substr($tanggal_bank_proses, 6, 4);
 		$tanggal_bank_masuk_data = $tahun_bank . '-' . $bulan_bank . '-' . $tanggal_bank;
 		$db->insert('tb_cash_receipt_payment', 'id_bank="' . $_SESSION['bank'] . '",number="' . $number . '",tanggal="' . $tanggal_fix . '",tanggal_bank="' . $tanggal_bank_fix . '",type="i",id_type_of_receipt="' . $gt['id_type_of_receipt'] . '",type_of_receipt="' . $gt['type_of_receipt'] . '",dari="IPL",amount="' . $jum_amount . '",urut="' . $urut . '",status="0",approved="0",input_data="' . $_SESSION['id_employee'] . '",priod="' . $priod . '"');
+		// echo "Testing";
 		echo str_replace("=", "", base64_encode($number));
 	} else if ($proses == 'priode_bayar' && $_SESSION['cash_receipt_edit'] == 1) {
 		$id = mysqli_real_escape_string($db->query, base64_decode($_POST['id']));
