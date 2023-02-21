@@ -18,8 +18,6 @@ class invoice
 			// GET PREVIOUS MONTH
 			$prev_periode = date('Y-m', strtotime("-1 month"));
 
-
-			// 			var_dump($prev_periode);
 			// GET CURRENT DATE
 			$this_date = date("d - m - Y");
 			$this_date_split = explode("-", $this_date);
@@ -73,7 +71,7 @@ class invoice
 					}
 					$tagihan_awal++;
 
-					//Cek Pembayaran Bulan Sebelumnya
+					//!Cek Pembayaran Bulan Sebelumnya sampai line 97
 					$query_get_data_prev_month = "SELECT * from tb_invoice_fix where nomor_bast='" . $nomor_bast . "' && tanggal_tgh like'%" . $prev_periode . "%'";
 					$result_get_data_prev_month = $db->selectAll($query_get_data_prev_month);
 					$final_get_data_prev_month = mysqli_fetch_assoc($result_get_data_prev_month);
