@@ -27,8 +27,6 @@ if (!empty($_SESSION['id_employee'])) {
 
     $result_data_previous_month = mysqli_fetch_assoc($data_previous_month);
     $saldo_awal_bulan = $result_data_previous_month['nominal'];
-
-
     $query = 'SELECT * FROM `tb_cash_receipt_payment` WHERE id_bank = ' . $bank . ' AND tanggal_bank BETWEEN "' . $from . '" AND "' . $to . '" AND status = "1" order by tanggal_bank ASC';
     $data = $db->selectAll($query);
     $result_data  = mysqli_fetch_assoc($data);

@@ -17,7 +17,7 @@ class db
 	function __construct()
 	{
 		$this->query = mysqli_connect($this->mysqli_host, $this->mysqli_user, $this->mysqli_password, $this->mysqli_database);
-		$this->query_app = mysqli_connect($this->mysqli_host_app, $this->mysqli_user_app, $this->mysqli_password_app, $this->mysqli_database_app);
+		// $this->query_app = mysqli_connect($this->mysqli_host_app, $this->mysqli_user_app, $this->mysqli_password_app, $this->mysqli_database_app);
 	}
 
 	function select($table, ?string $where, $by, $aksi, $kolom = '*')

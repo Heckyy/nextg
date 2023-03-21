@@ -55,7 +55,7 @@ $(document).ready(function () {
       type: "json",
       cache: false,
       success: function (response) {
-        //(response);
+        // alert(response);
         if (response == 2) {
           Swal.fire({
             icon: "error",
@@ -72,8 +72,8 @@ $(document).ready(function () {
             timer: 2000,
           });
           document.getElementById("btn").disabled = false;
-          //     // document.location.href =
-          //     // localStorage.getItem("data_link") + "/close_book";
+          //   //     // document.location.href =
+          //   //     // localStorage.getItem("data_link") + "/close_book";
         }
       },
     });

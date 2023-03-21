@@ -469,7 +469,7 @@
                     <i class="bi bi-wallet icons-size"></i>
                     <span>Finance</span>
                   </a>
-                  <ul class="submenu <?php if ($hal == 'report_finance_balance' || $hal == 'report_bank_cash' || $hal == 'report_cash_receipt' || $hal == 'report_cash_payment' || $hal == 'bank_cash' || $hal == 'type_of_receipt' || $hal == 'type_of_payment' || $hal == 'cash_receipt' || $hal == 'cash_payment' || $hal == 'invoice') {
+                  <ul class="submenu <?php if ($hal == 'report_finance_balance' || $hal == 'report_bank_cash' || $hal == 'report_cash_receipt' || $hal == 'report_cash_payment' || $hal == 'bank_cash' || $hal == 'type_of_receipt' || $hal == 'type_of_payment' || $hal == 'cash_receipt' || $hal == 'cash_payment' || $hal == 'invoice' || $hal = 'starting_balance') {
                                         echo 'active';
                                       } ?>">
                     <?php
